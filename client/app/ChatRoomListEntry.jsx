@@ -15,10 +15,13 @@ class ChatRoomListEntry extends Component {
   }
 
   componentDidMount() {
+
     this.props.room.user.on('private message received', msg => {
       this.setState({
         messages: [...this.state.messages, msg]
       })
+      let chatWindow = document.getElementById('chatWindow')
+      chatWindow.scrollTop = chatWindow.scrollHeight
     })
 
     //this is finding a user by id
@@ -40,6 +43,9 @@ class ChatRoomListEntry extends Component {
       .then(({ data }) => {
         this.setState({
           messages: data
+        }, () => {
+          let chatWindow = document.getElementById('chatWindow')
+          chatWindow.scrollTop = chatWindow.scrollHeight
         })
       })
     })
@@ -91,10 +97,12 @@ class ChatRoomListEntry extends Component {
     return (
       <div className="chatroom">
         <div className="chatroom-header">
-          <div className="chatroom-header-name">{this.props.room.friend}</div><div onClick={this.closeCurrentRoom.bind(this)} className="chatroom-header-button">x</div>
+          <div className="chatroom-header-name">{this.props.room.friend}</div>
+          <img id='video-chat-button' src='./images/video-camera.png' />
+          <div onClick={this.closeCurrentRoom.bind(this)} className="chatroom-header-button">x</div>
         </div>
 
-        <div className="private-message-area">
+        <div id='chatWindow' className="private-message-area">
           <MessageList messages={this.state.messages} friend={this.props.room.friend} user={this.props.room.user} />
         </div>
 

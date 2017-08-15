@@ -290,7 +290,7 @@ body {
 
 .chatroom-container {
   position: fixed;
-  height: 310px;
+  height: 300px;
   bottom: 0;
   right: 20%;
 }
@@ -299,7 +299,7 @@ body {
   text-align: center;
   background-color: #fff;
   float: right;
-  width: 200px;
+  width: 250px;
   border-radius: 2px;
   height: 305px;
   overflow: scroll;
@@ -330,7 +330,8 @@ body {
 .chatroom-header-button {
   float: right;
   font-size: 18px;
-  color: #B0C4DE;
+  color: white;
+  margin-right: 10px;
 }
 
 .chatroom-header-button:hover {
@@ -339,7 +340,7 @@ body {
 
 .chatroom-inputs {
   width: 100%;
-  top: 85%;
+  top: 90%;
   height: 10%;
 }
 
@@ -368,6 +369,8 @@ body {
   padding: 4px;
   background-color: #39D9C4;
   color: white;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .message-entry-fromOthers {
@@ -428,4 +431,11 @@ body {
 
 .hr-style {
   border-color: #39D9C4;
+}
+
+#video-chat-button {
+  height: 18px;
+  width: auto;
+  margin-left: 10px;
+  margin-bottom: 5px;
 }
