@@ -57,7 +57,7 @@ class LandingPage extends Component {
 	}
 
 	authcreate(user, callback) {
-		var conString = process.env.DATABASE_URL;
+		var conString = 'postgres://worejegx:sg-68kIGZY0dCwlgu4qBE7WUi8zHusrK@babar.elephantsql.com:5432/worejegx';
 		postgres(conString, function (err, client, done) {
 			if (err) {
 				console.log('could not connect to postgres db', err);

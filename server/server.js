@@ -58,3 +58,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('user disconnected', Object.keys(users))
   })
 })
+
+app.get('/*', function(req, res) {
+  res.redirect('/home')
+})
