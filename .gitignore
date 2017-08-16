@@ -60,3 +60,5 @@ typings/
 bundle.js
 
 VIDEO_KEYS.js
+
+package-lock.json
