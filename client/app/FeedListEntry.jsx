@@ -4,6 +4,7 @@ import FeedListEntryLikes from './FeedListEntryLikes.jsx';
 import FeedListEntryComments from './FeedListEntryComments.jsx';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom'
 
 const mapStateToProps = (state) => {
 	//state.SOMETHING is the reducer
@@ -130,7 +131,9 @@ class FeedListEntry extends Component {
 				<div>
 					<div className="post-info">
 						<img src={this.state.imageLink} className="user-img" />
-						<div className="post-name">{this.state.name}</div>
+						<Link to={'/' + this.state.name}>
+							<div className="post-name">{this.state.name}</div>
+						</Link>
 						<div className="post-time">{this.timeSince(new Date(this.props.post.createdAt))} ago</div>
 						<div className="post-message">{this.props.post.message}</div>
 					</div>
