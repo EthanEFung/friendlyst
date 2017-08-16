@@ -377,6 +377,7 @@ body {
   color: white;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  font-size: 12px;
 }
 
 .message-entry-fromOthers {
@@ -388,6 +389,7 @@ body {
   padding: 4px;
   background-color: #DCDCDC;
   color: black;
+  font-size: 12px;
 }
 
 .post-name {
@@ -460,13 +462,25 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  /* height: 720px;
-  width: 1280px; */
+  box-shadow: 0px 0px 5px 0px black;
 }
 
 #end {
   position: fixed;
-  left: 50%;
-  top: 70%;
-  transform: translate(-50%, -70%);
+  left: 47%;
+  top: 80%;
+  transform: translate(-47%, -80%);
+  height: 5%;
+  width: auto;
+  cursor: pointer;
+}
+
+#mute {
+  position: fixed;
+  left: 55%;
+  top: 79%;
+  transform: translate(-55%, -79%);
+  height: 3%;
+  width: auto;
+  cursor: pointer;
 }

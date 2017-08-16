@@ -12,7 +12,7 @@ class ChatRoomListEntry extends Component {
       value: '',
       messages: [],
       friendId: '',
-      showEndButton: false
+      showCallButton: false
     }
     this.handleVideoClick = this.handleVideoClick.bind(this)
     this.makeCall = this.makeCall.bind(this)
@@ -116,13 +116,13 @@ class ChatRoomListEntry extends Component {
       session.connected(function(session) {
         document.getElementById('vid-box').appendChild(session.video)
         app.setState({
-          showEndButton: true
+          showCallButton: true
         })
       })
       session.ended(function(session) {
         document.getElementById('vid-box').innerHTML = ''
         app.setState({
-          showEndButton: false
+          showCallButton: false
         })
       })
     })
@@ -134,7 +134,7 @@ class ChatRoomListEntry extends Component {
     if (!window.phone) alert('' + this.props.room.user.nickname)
     else phone.dial(this.props.room.friend)
     this.setState({
-      showEndButton: true
+      showCallButton: true
     })
     return false
   }
@@ -143,8 +143,13 @@ class ChatRoomListEntry extends Component {
     var ctrl = window.ctrl = CONTROLLER(phone);
     ctrl.hangup();
     this.setState({
-      showEndButton: false
+      showCallButton: false
     })
+  }
+
+  muteCall() {
+    var ctrl = window.ctrl = CONTROLLER(phone)
+    ctrl.toggleAudio()
   }
 
   render() {
@@ -152,7 +157,8 @@ class ChatRoomListEntry extends Component {
       <div>
         <div>
           <div id='vid-box'></div>
-          {this.state.showEndButton ? <button id='end' onClick={this.endCall}> END </button> : <div></div>}
+          {this.state.showCallButton ? <img src='./images/hangup.png' id='end' onClick={this.endCall} /> : <div></div>}
+          {this.state.showCallButton ? <img src='./images/mute.png' id='mute' onClick={this.muteCall} /> : <div></div>}
         </div>
         <div className="chatroom">
           <div className="chatroom-header">
