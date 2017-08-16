@@ -161,7 +161,7 @@ models.User.sync({
           {
             userComment: 'Yes Sir',
             userId: 4,
-            postId: 1
+            parentId: 1
           },
           {
             userComment: 'But Hack Reactor is not open right now',
