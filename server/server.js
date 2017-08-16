@@ -59,6 +59,6 @@ io.on('connection', (socket) => {
   })
 })
 
-app.get('/*', function(req, res) {
-  res.redirect('/home')
-})
+// app.get('/*', function(req, res) {
+//   res.redirect('/home')
+// })
