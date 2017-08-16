@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Nav from './Nav.jsx'
 import { connect } from 'react-redux';
 import FeedListEntry from './FeedListEntry.jsx';
+import ChatRoomList from './ChatRoomList.jsx'
+import FriendList from './FriendList.jsx'
 
 const mapStateToProps = (state) => {
   return {
@@ -14,7 +16,62 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+	return {
+		newPost(post) {
+			dispatch({
+				type: 'NEW_POST',
+				payload: post
+			})
+		},
+		appendChatRoom(room) {
+			dispatch({
+				type: 'ADD_ROOM',
+				payload: room
+			})
+		},
+		newFriend(friend) {
+			dispatch({
+				type: 'ADD_FRIEND',
+				payload: friend
+			})
+		},
+		friendOffline(friendList) {
+			dispatch({
+				type: 'FRIEND_OFFLINE',
+				payload: friendList
+			})
+		},
+		closeRoom(room) {
+			dispatch({
+				type: 'CLOSE_ROOM',
+				payload: room
+			})
+		},
+		newUser(userInfo) {
+			dispatch({
+				type: 'NEW_USER',
+				payload: userInfo
+			})
+		},
+		setSocket(socket) {
+			dispatch({
+				type: 'NEW_SOCKET',
+				payload: socket
+			})
+		}
+	}
+}
+
 class FriendProfile extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+			friendLyst: [],
+			socket: {}
+		}
+  }
 
   render() {
     {console.log(this.props.posts)}
@@ -44,6 +101,8 @@ class FriendProfile extends Component {
               })
           }
         </div>
+        <FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.props.socket} />
+        <ChatRoomList nickname={this.props.user.nickname} chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} userId={this.props.user.id} />
       </div>
     )
   }
