@@ -70,8 +70,6 @@ UserComment.belongsTo(Post);
 Post.hasMany(Like);
 Like.belongsTo(Post);
 
-UserComment.hasOne(UserComment,{as: 'ParentComment', foreignKey: 'parentId'});
-
 User.sync();
 Friend.sync();
 Post.sync();
