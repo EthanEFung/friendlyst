@@ -2,11 +2,20 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../../Nav.jsx';
 import EventList from './EventList.jsx';
+import axios from 'axios';
 
 class eventsPage extends Component {
 
-  componentDidMount() {
+  componentWillMount() {
+    axios.get('/api/event/getEvents', {
 
+    })
+      .then((events) => {
+
+      })
+      .catch(err => {
+        console.log('events page could not receive events from the database')
+      })
   }
 
   render() {

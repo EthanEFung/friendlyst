@@ -1,7 +1,6 @@
 const Event = require('./db/index').Event;
 
 module.exports = {
-
   getEvents: ((req, res) => {
     console.log('hit', req.query)
     Event.findAll({})

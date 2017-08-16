@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const controller = require('../controllers/eventCtrl');
 
-router.get('/getAllFriend', controller.getEvents);
+router.get('/getEvents', controller.getEvents);
 
 module.exports = router;
