@@ -5,6 +5,10 @@ import EventList from './EventList.jsx';
 
 class eventsPage extends Component {
 
+  componentDidMount() {
+    
+  }
+
   render() {
     return (
       <div className="events-page-container">
