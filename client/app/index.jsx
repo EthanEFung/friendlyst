@@ -47,8 +47,8 @@ render(
         <Route exact path="/notuser" component={NotUserProfile} />
         <Route exact path="/notfriend" component={NotFriendProfile} />
         <Route exact path="/friendprofile" component={FriendProfile} />
+        <Route exact path="/create-event-page" component={createEventPage} />        
         <Route exact path="/events-page" component={eventsPage} />
-        <Route exact path="/create-event-page" component={createEventPage} />
         <Route exact path="/*" component={FriendProfileRoute} />
       </Switch>
     </BrowserRouter>
