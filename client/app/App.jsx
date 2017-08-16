@@ -184,7 +184,7 @@ class App extends Component {
 					<FeedList posts={this.props.posts} user={this.props.user} />
 				</div>
 				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.props.socket} />
-				<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} userId={this.props.user.id} />
+				<ChatRoomList nickname={this.props.user.nickname} chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} userId={this.props.user.id} />
 			</div>
 		)
 	}

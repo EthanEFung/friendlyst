@@ -58,3 +58,5 @@ typings/
 .env
 
 bundle.js
+
+VIDEO_KEYS.js

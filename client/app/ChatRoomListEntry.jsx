@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import MessageList from './MessageList.jsx'
 import axios from 'axios'
+import VIDEO_KEYS from '../../VIDEO_KEYS.js'
 
 class ChatRoomListEntry extends Component {
   constructor() {
@@ -12,9 +13,15 @@ class ChatRoomListEntry extends Component {
       messages: [],
       friendId: ''
     }
+    this.handleVideoClick = this.handleVideoClick.bind(this)
+    this.makeCall = this.makeCall.bind(this)
+    this.login = this.login.bind(this)
+    this.endCall = this.endCall.bind(this)
   }
 
   componentDidMount() {
+
+    this.login()
 
     this.props.room.user.on('private message received', msg => {
       this.setState({
@@ -93,21 +100,60 @@ class ChatRoomListEntry extends Component {
     }
   }
 
+  handleVideoClick(e) {
+    this.makeCall()
+  }
+
+  login() {
+    var phone = window.phone = PHONE({
+      number: this.props.room.user.nickname || 'ANONYMOUS', // TO DO : ADD IN THE USERNAME HERE
+      publish_key: VIDEO_KEYS.publish_key,
+      subscribe_key: VIDEO_KEYS.subscribe_key
+    })
+    phone.receive(function(session) {
+      session.connected(function(session) {
+        document.getElementById('vid-box').appendChild(session.video)
+      })
+      session.ended(function(session) {
+        document.getElementById('vid-box').innerHTML = ''
+      })
+    })
+
+    return false
+  }
+
+  makeCall() {
+    if (!window.phone) alert('' + this.props.room.user.nickname)
+    else phone.dial(this.props.room.friend)
+    return false
+  }
+
+  endCall() {
+    var ctrl = window.ctrl = CONTROLLER(phone);
+    ctrl.hangup();
+  }
+
   render() {
     return (
-      <div className="chatroom">
-        <div className="chatroom-header">
-          <div className="chatroom-header-name">{this.props.room.friend}</div>
-          <img id='video-chat-button' src='./images/video-camera.png' />
-          <div onClick={this.closeCurrentRoom.bind(this)} className="chatroom-header-button">x</div>
+      <div>
+        <div>
+          <div id='vid-box'></div>
+          <button id='end' onClick={this.endCall}> END </button>
         </div>
+        <div className="chatroom">
+          <div className="chatroom-header">
+            <div className="chatroom-header-name">{this.props.room.friend}</div>
+            <img id='video-chat-button' src='./images/video-camera.png' onClick={this.handleVideoClick} />
+            <div onClick={this.closeCurrentRoom.bind(this)} className="chatroom-header-button">x</div>
+          </div>
 
-        <div id='chatWindow' className="private-message-area">
-          <MessageList messages={this.state.messages} friend={this.props.room.friend} user={this.props.room.user} />
-        </div>
+          <div id='chatWindow' className="private-message-area">
+            <MessageList messages={this.state.messages} friend={this.props.room.friend} user={this.props.room.user} />
+          </div>
 
-        <div className="chatroom-inputs">
-          <input onKeyPress={this.handleEnter.bind(this)} placeholder="Type a message..." />
+          <div className="chatroom-inputs">
+            <input onKeyPress={this.handleEnter.bind(this)} placeholder="Type a message..." />
+          </div>
         </div>
       </div>
     )
