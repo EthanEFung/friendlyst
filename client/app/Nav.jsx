@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 		posts: state.postsReducer.posts,
 		chatRooms: state.chatRoomReducer.chatRooms,
 		user: state.userReducer.user,
-		friend: state.friendReducer.friend
+    friend: state.friendReducer.friend
 	}
 }
 
@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => {
 				type: 'NEW_FRIEND',
 				payload: friend
 			})
-		}
+    }
 	}
 }
 
@@ -41,6 +41,7 @@ class Nav extends Component {
     return (
     <div id="nav-bar">
       <Link to="/home" className="nav-bar-image"><img className="resize2" src="friendlystlogo.jpg" /></Link>
+      <Link to="/events-page"><button className="buttons">Events</button></Link>
       <Link to="/profile"><button className="buttons">Profile</button></Link>
       <button className="buttons" onClick={() => auth.logout()}>Logout</button>
       <form style={{position:'relative', marginTop:'10px'}}>

@@ -21,7 +21,7 @@ const mapStateToProps = (state) => {
 		user: state.userReducer.user,
 		friend: state.friendReducer.friend,
 		socket: state.socketReducer.socket,
-		events: state.eventsReducer.event
+		// events: state.eventsReducer.events
 	}
 }
 
@@ -69,12 +69,12 @@ const mapDispatchToProps = (dispatch) => {
 				payload: socket
 			})
 		},
-		createEvent(event) {
-			dispatch({
-				type: 'CREATE_EVENT',
-				payload: event
-			})
-		}
+		// initEvent(event) {
+		// 	dispatch({
+		// 		type: 'INIT_EVENT',
+		// 		payload: event
+		// 	})
+		// }
 	}
 }
 

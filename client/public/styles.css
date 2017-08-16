@@ -402,7 +402,7 @@ body {
   color: black;
 }
 
-.profile-info {
+.profile-info .events-page {
   text-align: center;
 }
 
@@ -410,7 +410,11 @@ body {
   text-align: center;
 }
 
-.friend-profile-info-container {
+.friend-profile-info-container  {
+  text-align: center;
+}
+
+.events-page-container {
   text-align: center;
 }
 
@@ -427,6 +431,11 @@ body {
 .profile-info img {
   height: 200px;
   width: 200px;
+}
+
+.events-page-info {
+  text-align: center;
+  font-size: 16px;
 }
 
 .hr-style {
