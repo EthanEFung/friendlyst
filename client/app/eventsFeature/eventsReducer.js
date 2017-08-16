@@ -1,12 +1,12 @@
 module.exports = (state = {
-  comments: []
+  events: []
 }, action) => {
   switch (action.type) {
-    case 'RENDER_EVENTS_PAGE':
+    case 'GET_STORED_EVENTS':
       state = Object.assign({}, state, {
-        events: [...state.events, action.payload]
+        events: [...state.events]
       })
-      return state
+      return state  
     default:
       return state
   }

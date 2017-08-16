@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../../Nav.jsx';
-import EventList from './EventList.jsx';
+import EventList from '../components/EventList.jsx';
 import axios from 'axios';
+
+const mapStateToProps = (state) => {
+	return {
+		events: state.eventsReducer.events
+	}
+}
 
 class eventsPage extends Component {
 
@@ -38,4 +44,4 @@ class eventsPage extends Component {
   }
 }
 
-export default eventsPage;
+export default connect(mapStateToProps, { getStoredEvents })(eventsPage)
