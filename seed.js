@@ -25,8 +25,8 @@ models.User.sync({
         profilePicture: "https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/19366468_10100764456410460_270583895771912490_n.jpg?oh=20a818a4fa156b1a4e7b4424589ff832&oe=59F19DE8"
       },
       {
-        email: 'tester@gmail.com',
-        nickname: 'tester',
+        email: ' mkdai@gmail.com',
+        nickname: 'mkdai',
         profilePicture: "https://s.gravatar.com/avatar/8c3fe1ad25e6d5f47512ea7365419966?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fte.png"
       }
     ])
@@ -187,7 +187,11 @@ models.User.sync({
             userComment: 'I have no idea what I just said!',
             userId: 2,
             postId: 6
-          }
+          },{
+            userComment: "Yes we are!",
+            userId: 3,
+            parentId: 1
+          },
         ])
       })
   })
