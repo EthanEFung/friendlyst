@@ -8,7 +8,7 @@ require('dotenv').config({
   path: envPath
 });
 
-const db = new Sequelize(process.env.DATABASE_URL, {
+const db = new Sequelize('postgres://fyqybcwx:EhumIvf0vaVSJpLPpsVBMp0GrgOk2yei@pellefant.db.elephantsql.com:5432/fyqybcwx', {
   dialect: 'postgres',
   pool: {
     max: 3,
