@@ -112,7 +112,6 @@ class App extends Component {
 		}, 1500)
 
 		this.props.posts.sort((a, b) => b.id - a.id);
-
 	}
 
 	manageChat(nickname) {
