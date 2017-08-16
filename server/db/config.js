@@ -1,6 +1,8 @@
-const Sequelize = require('sequelize');
-const path = require('path');
-const envPath = path.resolve(__dirname, './../../.env');
+const Sequelize = require('sequelize')
+const path = require('path')
+const envPath = path.resolve(__dirname, './../../.env')
+console.log(envPath, 'this is the path')
+console.log(typeof envPath)
 
 require('dotenv').config({
   path: envPath

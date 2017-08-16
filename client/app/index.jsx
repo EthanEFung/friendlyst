@@ -8,6 +8,8 @@ import LandingPage from './LandingPage.jsx'
 import FriendProfile from './FriendProfile.jsx'
 import FriendProfileRoute from './FriendProfileRoute.jsx'
 import Profile from './Profile.jsx'
+import eventsPage from './eventsFeature/components/eventsPage.jsx'
+import createEventPage from './eventsFeature/components/createEventPage.jsx'
 import NotFriendProfile from './NotFriendProfile.jsx'
 import NotUserProfile from './NotUserProfile.jsx'
 import postsReducer from './reducer/postReducer.js'
@@ -18,6 +20,7 @@ import friendReducer from './reducer/friendReducer.js'
 import chatRoomReducer from './reducer/chatRoomReducer.js'
 import commentReducer from './reducer/commentReducer.js'
 import socketReducer from './reducer/socketReducer.js'
+import eventsReducer from './eventsFeature/eventsReducer.js'
 import $ from 'jquery';
 
 const reducers = combineReducers({
@@ -28,7 +31,8 @@ const reducers = combineReducers({
    friendReducer,
    friendinfoReducer,
    commentReducer,
-   socketReducer
+   socketReducer,
+   eventsReducer
 })
 
 const store = createStore(reducers)
@@ -43,6 +47,8 @@ render(
         <Route exact path="/notuser" component={NotUserProfile} />
         <Route exact path="/notfriend" component={NotFriendProfile} />
         <Route exact path="/friendprofile" component={FriendProfile} />
+        <Route exact path="/create-event-page" component={createEventPage} />        
+        <Route exact path="/events-page" component={eventsPage} />
         <Route exact path="/*" component={FriendProfileRoute} />
       </Switch>
     </BrowserRouter>

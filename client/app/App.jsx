@@ -20,7 +20,8 @@ const mapStateToProps = (state) => {
 		chatRooms: state.chatRoomReducer.chatRooms,
 		user: state.userReducer.user,
 		friend: state.friendReducer.friend,
-		socket: state.socketReducer.socket
+		socket: state.socketReducer.socket,
+		// events: state.eventsReducer.events
 	}
 }
 
@@ -67,7 +68,13 @@ const mapDispatchToProps = (dispatch) => {
 				type: 'NEW_SOCKET',
 				payload: socket
 			})
-		}
+		},
+		// initEvent(event) {
+		// 	dispatch({
+		// 		type: 'INIT_EVENT',
+		// 		payload: event
+		// 	})
+		// }
 	}
 }
 
