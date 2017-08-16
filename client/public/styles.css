@@ -437,7 +437,7 @@ body {
   height: 18px;
   width: auto;
   margin-left: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 #vid-box {
@@ -445,10 +445,13 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  /* height: 720px;
+  width: 1280px; */
 }
 
 #end {
   position: fixed;
   left: 50%;
-  transform: translate(-50%, 0);
+  top: 70%;
+  transform: translate(-50%, -70%);
 }
