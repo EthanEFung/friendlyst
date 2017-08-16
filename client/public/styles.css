@@ -442,6 +442,13 @@ body {
 
 #vid-box {
   position: fixed;
-  top: 20%;
-  right: 30%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#end {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
 }

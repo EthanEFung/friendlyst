@@ -11,7 +11,8 @@ class ChatRoomListEntry extends Component {
     this.state = {
       value: '',
       messages: [],
-      friendId: ''
+      friendId: '',
+      showEndButton: false
     }
     this.handleVideoClick = this.handleVideoClick.bind(this)
     this.makeCall = this.makeCall.bind(this)
@@ -105,6 +106,7 @@ class ChatRoomListEntry extends Component {
   }
 
   login() {
+    let app = this
     var phone = window.phone = PHONE({
       number: this.props.room.user.nickname || 'ANONYMOUS', // TO DO : ADD IN THE USERNAME HERE
       publish_key: VIDEO_KEYS.publish_key,
@@ -113,9 +115,15 @@ class ChatRoomListEntry extends Component {
     phone.receive(function(session) {
       session.connected(function(session) {
         document.getElementById('vid-box').appendChild(session.video)
+        app.setState({
+          showEndButton: true
+        })
       })
       session.ended(function(session) {
         document.getElementById('vid-box').innerHTML = ''
+        app.setState({
+          showEndButton: false
+        })
       })
     })
 
@@ -125,12 +133,18 @@ class ChatRoomListEntry extends Component {
   makeCall() {
     if (!window.phone) alert('' + this.props.room.user.nickname)
     else phone.dial(this.props.room.friend)
+    this.setState({
+      showEndButton: true
+    })
     return false
   }
 
   endCall() {
     var ctrl = window.ctrl = CONTROLLER(phone);
     ctrl.hangup();
+    this.setState({
+      showEndButton: false
+    })
   }
 
   render() {
@@ -138,7 +152,7 @@ class ChatRoomListEntry extends Component {
       <div>
         <div>
           <div id='vid-box'></div>
-          <button id='end' onClick={this.endCall}> END </button>
+          {this.state.showEndButton ? <button id='end' onClick={this.endCall}> END </button> : <div></div>}
         </div>
         <div className="chatroom">
           <div className="chatroom-header">
