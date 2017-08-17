@@ -38,22 +38,22 @@ export default class Auth {
   }
 
   getProfile(cb) {
-    console.log('getting profile::::::::::::');
+    //console.log('getting profile::::::::::::');
     let accessToken = this.getAccessToken();
     this.auth0.client.userInfo(accessToken, (err, profile) => {
       if (profile) {
         this.userProfile = profile;
       }
-      console.log('THIS IS AUTH PROFILE', profile)
+      //console.log('THIS IS AUTH PROFILE', profile)
       cb(err, profile);
     });
   }
 
   handleAuthentication(newUser, manageChat) {
-    console.log('handleAuthentication has been called')
+    //console.log('handleAuthentication has been called')
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        console.log('this is authResult', authResult)
+        //console.log('this is authResult', authResult)
         this.setSession(authResult)
         axios.get('https://taeminpak.auth0.com/userinfo', {
             headers: {
@@ -63,14 +63,14 @@ export default class Auth {
           .then(({
             data
           }) => {
-            console.log('this is data', data, data.nickname)
+            //console.log('this is data', data, data.nickname)
             axios.post('/api/user/addUser', {
               nickname: data.nickname,
               email: data.name,
               profilePicture: data.picture
             })
             .then(({ data }) => {
-              console.log('this is addUser data: ', data)
+              //console.log('this is addUser data: ', data)
               newUser(data[0])
               manageChat(data[0].nickname)
             })
@@ -88,10 +88,10 @@ export default class Auth {
     .then(({
       data
     }) => {
-      console.log('this is data', data, data.nickname)
+      //console.log('this is data', data, data.nickname)
       axios.get(`/api/user/getUser?email=${data.name}`)
       .then(({ data }) => {
-        console.log('this is addUser data: ', data)
+        //console.log('this is addUser data: ', data)
         newUser(data)
         manageChat(data.nickname)
       })
@@ -99,7 +99,7 @@ export default class Auth {
   }
 
   getProfileInfo() {
-    console.log(this.auth0);
+    //console.log(this.auth0);
   }
 
   setSession(authResult) {

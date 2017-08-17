@@ -179,8 +179,8 @@ class App extends Component {
 
 						usernames = usernames.filter(username => friendsNicknames.indexOf(username) !== -1)
 
-						console.log('friends', friendsNicknames)
-						console.log('usernames', usernames)
+						// console.log('friends', friendsNicknames)
+						// console.log('usernames', usernames)
 						
 						this.props.newFriend(usernames)
 					})

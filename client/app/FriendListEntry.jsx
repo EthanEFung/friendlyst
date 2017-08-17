@@ -11,7 +11,7 @@ class FriendListEntry extends Component {
       user: this.props.user,
       friend: this.props.friend,
     }
-    console.log('this is room',room)
+    //console.log('this is room',room)
     this.props.appendChatRoom(room)
   }
 

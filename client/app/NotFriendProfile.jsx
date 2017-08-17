@@ -34,7 +34,7 @@ class NotFriendProfile extends Component {
       .then(() => {
         alert('Added friend!')
         this.setState({ notFriend: false })
-        console.log('Added as friend!')
+        //console.log('Added as friend!')
       })
       .catch(err => console.log(`Error adding friend ${err}`))
   }

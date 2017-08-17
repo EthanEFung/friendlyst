@@ -56,15 +56,15 @@ class Profile extends Component {
 			}).then( (response) => {
 				const data = response.data
         const fileURL = data.secure_url
-        console.log(`this is the fileURL ${fileURL}`)
-        console.log(`this is the data ${data}`)
-        console.log(`this is this.props.user ${JSON.stringify(this.props.user)}`)
+        // console.log(`this is the fileURL ${fileURL}`)
+        // console.log(`this is the data ${data}`)
+        // console.log(`this is this.props.user ${JSON.stringify(this.props.user)}`)
         //send an update to the 
         axios.post('/api/user/addOrUpdateProfileImageLink', {
           imgUrl: fileURL,
           user: this.props.user.id,
         }).then(({ data }) => {
-          console.log(`data ${JSON.stringify(data)}`)
+          //console.log(`data ${JSON.stringify(data)}`)
           this.props.newUser(data)
         })
 
