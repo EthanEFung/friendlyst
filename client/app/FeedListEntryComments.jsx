@@ -59,8 +59,7 @@ class FeedListEntryComments extends Component {
 		//should send comment request to server
 		let email = this.props.user.email;
 		let ID = this.props.comment.id;
-		console.log(email, ID, this.state.commentText)
-		axios.post('api/usercomment/postComment', {
+		axios.post('api/usercomment/postSubComment', {
 			email: email,
 			parentId: ID,
 			message: this.state.subcommentText
