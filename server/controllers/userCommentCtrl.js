@@ -51,5 +51,29 @@ module.exports = {
     })
     .catch(err => res.status(500).send(`Can't find user! ${err}`))
   }),
+  getAllSubComments: (req, res) => {
+    UserComment.findAll({
+      where: {parentId: req.query.parentId}
+    })
+      .then(comments => res.status(200).send(comments))
+      .catch(err => res.status(500).send(`Error finding comments! ${err}`))
+  },
+  postSubComment: (req,res) => {
+    User.find({
+      where: {
+        email: req.body.email
+      }
+    })
+    .then(user => {
+      UserComment.create({
+        userComment: req.body.message,
+        parentId: req.body.parentId,
+        userId: user.id,
+      })
+      .then(comment => res.status(201).send(comment))
+      .catch(err => res.status(500).send(`Can't comment! ${err}`))
+    })
+    .catch(err => res.status(500).send(`Can't find user! ${err}`))
+  }
 
 };
