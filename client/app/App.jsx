@@ -180,6 +180,7 @@ class App extends Component {
 	}
 
 	render() {
+		console.log('THIS IS THE PROPS.FRIENDS ::::: ', this.props.friends)
 
 		return (
 			<div>
