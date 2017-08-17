@@ -40,7 +40,7 @@ module.exports = {
             },
             limit: 10,
             order: [
-              ['createdAt', 'ASC']
+              ['createdAt', 'DESC']
             ]
           })
           .then(posts => res.status(200).send(posts))
