@@ -93,7 +93,7 @@ class App extends Component {
 		if (!auth.isAuthenticated()) {
 			auth.handleAuthentication(this.props.newUser, this.manageChat.bind(this));
 		} else {
-			auth.handleAuthentication(this.props.newUser, this.manageChat.bind(this))
+			auth.setUserWhenAuthenticated(this.props.newUser, this.manageChat.bind(this));
 		}
 		
 

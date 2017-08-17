@@ -21,6 +21,8 @@ export default class Auth {
     this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.getProfile = this.getProfile.bind(this);
+    this.getAccessToken = this.getAccessToken.bind(this);
+    this.setUserWhenAuthenticated = this.setUserWhenAuthenticated.bind(this);
   };
 
   login() {
@@ -36,11 +38,13 @@ export default class Auth {
   }
 
   getProfile(cb) {
+    console.log('getting profile::::::::::::');
     let accessToken = this.getAccessToken();
     this.auth0.client.userInfo(accessToken, (err, profile) => {
       if (profile) {
         this.userProfile = profile;
       }
+      console.log('THIS IS AUTH PROFILE', profile)
       cb(err, profile);
     });
   }
@@ -66,12 +70,31 @@ export default class Auth {
               profilePicture: data.picture
             })
             .then(({ data }) => {
+              console.log('this is addUser data: ', data)
               newUser(data[0])
               manageChat(data[0].nickname)
             })
           })
       }
     })
+  }
+  setUserWhenAuthenticated(newUser, manageChat) {
+    this.getProfile((err, profile)=>{
+				if(err){
+					throw err;
+				} else {
+					axios.post('/api/user/addUser', {
+							nickname: profile.nickname,
+							email: profile.name,
+							profilePicture: profile.picture
+						})
+						.then(({ data }) => {
+							console.log('this is addUser data: ', data);
+							newUser(data[0]);
+							manageChat(data[0].nickname);
+						});
+				}
+			})
   }
 
   getProfileInfo() {
