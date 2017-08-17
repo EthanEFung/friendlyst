@@ -1,4 +1,5 @@
-const Event = require('./db/index').Event;
+const Event = require('../db/index').Event;
+console.log('3: in th event controller')
 
 module.exports = {
   getEvents: ((req, res) => {

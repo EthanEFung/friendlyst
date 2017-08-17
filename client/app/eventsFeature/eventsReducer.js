@@ -1,10 +1,10 @@
-module.exports = (state = {
+export default (state = {
   events: []
 }, action) => {
   switch (action.type) {
     case 'GET_STORED_EVENTS':
       state = Object.assign({}, state, {
-        events: [...state.events]
+        events: [...action.payload]
       })
       return state  
     default:

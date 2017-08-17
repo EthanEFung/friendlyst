@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Nav from '../../Nav.jsx';
-import EventList from '../components/EventList.jsx';
-import axios from 'axios';
+import EventList from '../containers/EventsList.jsx';
 
 const mapStateToProps = (state) => {
 	return {
@@ -10,20 +10,7 @@ const mapStateToProps = (state) => {
 	}
 }
 
-class eventsPage extends Component {
-
-  componentWillMount() {
-    axios.get('/api/event/getEvents', {
-
-    })
-      .then((events) => {
-
-      })
-      .catch(err => {
-        console.log('events page could not receive events from the database')
-      })
-  }
-
+class EventsPage extends Component {
   render() {
     return (
       <div className="events-page-container">
@@ -44,4 +31,4 @@ class eventsPage extends Component {
   }
 }
 
-export default connect(mapStateToProps, { getStoredEvents })(eventsPage)
+export default connect(mapStateToProps, {  })(EventsPage)
