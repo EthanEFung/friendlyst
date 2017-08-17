@@ -112,6 +112,7 @@ body {
 
 .nav-bar-image {
   float:left;
+  margin-left: 15%;
 }
 
 #nav-bar form {
@@ -154,14 +155,17 @@ body {
   height: 70px;
   text-align: left;
   border-radius: 4px;
-  margin-left:32.5%;
-  display:block;
+  margin-left:3%;
+  display:inline-block;
 }
 
 .input-button-container {
   text-align: right;
   width:35%;
   margin-left: 32.5%;
+  /* display: inline-block; */
+  margin-top: -2%;
+  margin-bottom: 2%;
 }
 
 .feed-entry {
@@ -483,4 +487,19 @@ body {
   height: 3%;
   width: auto;
   cursor: pointer;
+}
+
+#navProfilePicture {
+  height: 40px;
+  width: auto;
+  margin-top: 5px;
+  /* border-radius: 50%; */
+}
+
+#statusPicture {
+  height: 100px;
+  width: auto;
+  display: inline-block;
+  margin-top: -2%;
+  margin-right: -1%;
 }
