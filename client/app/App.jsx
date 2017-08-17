@@ -202,19 +202,22 @@ class App extends Component {
 			email: this.props.user.email,
 			message: $('#post-area').val(),
 			image: imageURL || null
-		}).then(({ data }) => {
-			console.log(`this.submitPost data is ${JSON.stringify(data)}`)
-			this.props.newPost(data);
-		}).catch(err => {
-			console.log(err);
 		})
 			.then(({ data }) => {
+				console.log(`this.submitPost data is ${JSON.stringify(data)}`)
 				//this.props.newPost(data);
 				this.props.socket.emit('new post', data)
 			})
 			.catch(err => {
 				console.log(err);
 			})
+			// .then(({ data }) => {
+			// 	//this.props.newPost(data);
+			// 	this.props.socket.emit('new post', data)
+			// })
+			// .catch(err => {
+			// 	console.log(err);
+			// })
 		document.getElementById('post-area').value='';
 	}
 
