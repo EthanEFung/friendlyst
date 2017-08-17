@@ -1,7 +1,7 @@
 import React from 'react'
 import FeedListEntry from './FeedListEntry.jsx'
 
-const FeedList = ({ posts, user }) => {
+const FeedList = ({ posts, user, socket }) => {
   return (
     <div>
       <div>
@@ -9,7 +9,7 @@ const FeedList = ({ posts, user }) => {
 				a = a.updatedAt;
 				b = b.updatedAt;
 				return a > b ? -1 : a < b ? 1 : 0;
-			}).map((post, key) => <FeedListEntry post={post} key={post.id} user={user} />)}
+			}).map((post, key) => <FeedListEntry post={post} key={post.id} user={user} socket={socket} />)}
       </div>
     </div>
   )

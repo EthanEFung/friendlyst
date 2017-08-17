@@ -185,8 +185,8 @@ class ChatRoomListEntry extends Component {
           {this.state.showCallButton ? <img src='./images/hangup.png' id='end' onClick={this.endCall} /> : <div></div>}
           {this.state.showCallButton ? <img src='./images/mute.png' id='mute' onClick={this.muteCall} /> : <div></div>}
         </div>
-        <div className="chatroom" onClick={this.minimize}>
-          <div className="chatroom-header">
+        <div className="chatroom">
+          <div className="chatroom-header" onClick={this.minimize}>
             <div className="chatroom-header-name">{this.props.room.friend}</div>
             <img id='video-chat-button' src='./images/video-camera.png' onClick={this.handleVideoClick} />
             <div onClick={this.closeCurrentRoom.bind(this)} className="chatroom-header-button">x</div>
@@ -202,7 +202,7 @@ class ChatRoomListEntry extends Component {
         </div>
 
         <div className='chatroom-minimize' style={{ display: 'none' }} onClick={this.maximize}>
-        <p onClick={this.maximize}> {this.props.room.friend} </p>
+          <p onClick={this.maximize}> {this.props.room.friend} </p>
         </div>
       </div>
     )
