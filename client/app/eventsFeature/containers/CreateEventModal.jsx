@@ -45,7 +45,6 @@ class CreateEventModal extends Component {
           <Button onClick={this.closeCreateEventModal}>Close</Button>
         </Modal.Footer>
       </Modal>
-
     </div>
     )
   }
