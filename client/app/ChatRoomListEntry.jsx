@@ -19,6 +19,8 @@ class ChatRoomListEntry extends Component {
     this.makeCall = this.makeCall.bind(this)
     this.login = this.login.bind(this)
     this.endCall = this.endCall.bind(this)
+    this.minimize = this.minimize.bind(this)
+    this.maximize = this.maximize.bind(this)
   }
 
   componentDidMount() {
@@ -165,6 +167,16 @@ class ChatRoomListEntry extends Component {
     ctrl.toggleAudio()
   }
 
+  minimize() {
+    $('.chatroom').hide()
+    $(".chatroom-minimize").show()
+  }
+
+  maximize() {
+    $('.chatroom').show()
+    $(".chatroom-minimize").hide()
+  }
+
   render() {
     return (
       <div>
@@ -173,7 +185,7 @@ class ChatRoomListEntry extends Component {
           {this.state.showCallButton ? <img src='./images/hangup.png' id='end' onClick={this.endCall} /> : <div></div>}
           {this.state.showCallButton ? <img src='./images/mute.png' id='mute' onClick={this.muteCall} /> : <div></div>}
         </div>
-        <div className="chatroom">
+        <div className="chatroom" onClick={this.minimize}>
           <div className="chatroom-header">
             <div className="chatroom-header-name">{this.props.room.friend}</div>
             <img id='video-chat-button' src='./images/video-camera.png' onClick={this.handleVideoClick} />
@@ -187,6 +199,10 @@ class ChatRoomListEntry extends Component {
           <div className="chatroom-inputs">
             <input onKeyPress={this.handleEnter.bind(this)} placeholder="Type a message..." />
           </div>
+        </div>
+
+        <div className='chatroom-minimize' style={{ display: 'none' }} onClick={this.maximize}>
+        <p onClick={this.maximize}> {this.props.room.friend} </p>
         </div>
       </div>
     )
