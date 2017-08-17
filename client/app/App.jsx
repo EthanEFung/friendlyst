@@ -83,9 +83,11 @@ class App extends Component {
 
 	constructor(props) {
 		super(props);
+		this.addPostImage = this.addPostImage.bind(this)
 		this.state = {
 			friendLyst: [],
-			socket: {}
+			socket: {},
+			postURL: ''
 		}
 	}
 
@@ -193,10 +195,18 @@ class App extends Component {
 		})		
 	}
 
-	submitPost() {
+	submitPost(imageURL) {
+		console.log('now im in this.submitPost')
+
 		axios.post('api/post/postPost', {
 			email: this.props.user.email,
-			message: $('#post-area').val()
+			message: $('#post-area').val(),
+			image: imageURL || null
+		}).then(({ data }) => {
+			console.log(`this.submitPost data is ${JSON.stringify(data)}`)
+			this.props.newPost(data);
+		}).catch(err => {
+			console.log(err);
 		})
 			.then(({ data }) => {
 				//this.props.newPost(data);
@@ -208,8 +218,27 @@ class App extends Component {
 		document.getElementById('post-area').value='';
 	}
 
-	addPostImage(localFileURL) {
-		console.log(`Attach image button clicked`)
+	addPostImage(files) {
+		console.log(`Dropzone activated`)
+		const uploaders = files.map( (file) => {
+			const formData = new FormData()
+			formData.append('file', file)
+			formData.append('tags', `dyrwrlv2h, medium, gist`)
+			formData.append('upload_preset', 'twliuw5d')
+			formData.append('api_key', '377437738276986')
+			formData.append('timestamp', (Date.now() / 1000) | 0)
+
+			return axios.post('https://api.cloudinary.com/v1_1/dyrwrlv2h/image/upload', formData, {
+				headers: { "X-Requested-With": "XMLHttpRequest" }
+			}).then( (response) => {
+				const data = response.data
+        const imageURL = data.secure_url
+        console.log(`this is the fileURL ${imageURL}`)
+        console.log(`this is the data ${JSON.stringify(data)}`)
+        console.log(`this is this.props.user ${JSON.stringify(this.props.user)}`)
+        this.submitPost(imageURL)
+      })
+		})
 	}
 
 	render() {
@@ -220,7 +249,15 @@ class App extends Component {
 				<Nav nickname={this.props.user.nickname} picture={this.props.user.profilePicture} />
 				<div className="home-page-container">
 					<img src={this.props.user.profilePicture} id='statusPicture' />
-					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
+					<Dropzone
+						onDrop={this.addPostImage}
+						multiple
+						accept="image/*"
+						className="postImage"
+						disableClick="true"
+					>
+						<textarea id="post-area" placeholder="What's on your mind?"></textarea>
+					</Dropzone>
 					<div className="input-button-container"><Button bsStyle="success" onClick={this.addPostImage.bind(this)}>Attach Image</Button></div>
 					<div className="input-button-container"><Button bsStyle="success" onClick={this.submitPost.bind(this)}>Post</Button></div>
 					<FeedList posts={this.props.posts} user={this.props.user} socket={this.props.socket} />

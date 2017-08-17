@@ -570,3 +570,8 @@ body {
 .chatroom-minimize p:hover {
   cursor:pointer;
 }
+
+.post-image {
+  max-width: 150px;
+  max-height: 150px;
+}
