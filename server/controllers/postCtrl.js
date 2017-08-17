@@ -30,6 +30,7 @@ module.exports = {
         }
       })
       .then(user => {
+        console.log(user.dataValues)
         Post.findAll({
             where: {
               userId: user.dataValues.id

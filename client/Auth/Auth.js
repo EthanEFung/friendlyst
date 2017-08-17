@@ -79,22 +79,23 @@ export default class Auth {
     })
   }
   setUserWhenAuthenticated(newUser, manageChat) {
-    this.getProfile((err, profile)=>{
-				if(err){
-					throw err;
-				} else {
-					axios.post('/api/user/addUser', {
-							nickname: profile.nickname,
-							email: profile.name,
-							profilePicture: profile.picture
-						})
-						.then(({ data }) => {
-							console.log('this is addUser data: ', data);
-							newUser(data[0]);
-							manageChat(data[0].nickname);
-						});
-				}
-			})
+    
+    axios.get('https://taeminpak.auth0.com/userinfo', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+      }
+    })
+    .then(({
+      data
+    }) => {
+      console.log('this is data', data, data.nickname)
+      axios.get(`/api/user/getUser?email=${data.name}`)
+      .then(({ data }) => {
+        console.log('this is addUser data: ', data)
+        newUser(data)
+        manageChat(data.nickname)
+      })
+    })
   }
 
   getProfileInfo() {

@@ -25,8 +25,8 @@ models.User.sync({
   },
   {
     email: 'mkdai@gmail.com',
-    nickname: 'michael',
-    profilePicture: "https://s.gravatar.com/avatar/8c3fe1ad25e6d5f47512ea7365419966?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fte.png"
+    nickname: 'mkdai',
+    profilePicture: "https://s.gravatar.com/avatar/4b82a0758d4b828b26866cce14bb747a?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fmk.png"
   }
   ]).then(() => {
     models.Friend.sync({
