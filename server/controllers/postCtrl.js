@@ -13,9 +13,12 @@ module.exports = {
         }
       })
       .then(user => {
+        if (typeof req.body.image !== 'string') { req.body.image = '' }
+
         Post.create({
             message: req.body.message,
-            userId: user.id
+            userId: user.id,
+            image: req.body.image
           })
           .then(post => res.status(201).send(post))
           .catch(err => res.status(500).send(`Can't post! ${err}`))

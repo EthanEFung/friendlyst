@@ -154,6 +154,7 @@ class FeedListEntry extends Component {
 						</Link>
 						<div className="post-time">{this.timeSince(new Date(this.props.post.createdAt))} ago</div>
 						<div className="post-message">{this.props.post.message}</div>
+						<img className="post-image" src={this.props.post.image}/>
 					</div>
 				</div>
 
