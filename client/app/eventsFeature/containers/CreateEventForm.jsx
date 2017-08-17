@@ -8,6 +8,7 @@ import {
   ControlLabel,
   HelpBlock, 
 } from 'react-bootstrap';
+import createNewEvent from '../actions/createNewEvent.js'
 
 const mapStateToProps = (state) => {
   return {
@@ -19,7 +20,12 @@ class CreateEventForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      event: {
+        name: '',
+        date: new Date(),
+        location: '',
+        description: '',
+      }
     }
 
     this.getValidationState = this.getValidationState.bind(this);
@@ -61,8 +67,26 @@ class CreateEventForm extends Component {
             <HelpBlock>Validation is based on string length</HelpBlock>
           </Col>
         </FormGroup>
+
+        <Form horizontal>
+        <FormGroup
+          controlId="eventName"
+          validationState={this.getValidationState()}
+        >
+          <Col componentClass={ControlLabel} sm={3}>Event Name</Col>
+          <Col sm={9}>
+            <FormControl
+              type="text"
+              value={this.state.value}
+              placeholder="Enter the event's name"
+              onChange={this.handleValueChange}
+            />
+            <FormControl.Feedback />
+            <HelpBlock>Validation is based on string length</HelpBlock>
+          </Col>
+        </FormGroup>
       </Form>
     );
   }
 }
-export default connect(mapStateToProps)(CreateEventForm);
+export default connect(mapStateToProps, { createNewEvent })(CreateEventForm);
