@@ -69,12 +69,35 @@ module.exports = {
     )
       .then(data => {
         User.find({
-          where: {userId: req.body.userId}
+          where: {id: req.body.userId}
         })
           .then(user => res.status(201).send(user))
           .catch(err => res.status(500).send(err))
       })
       .catch(err => res.status(500).send(`Error changing profile pic ${err}`))
-  })
+  }),
 
+  addOrUpdateProfileImageLink: ( (req,res) => {
+    console.log(`i'm in addOrUpdateProfileImageLink()`)
+    console.log(`req.body is ${JSON.stringify(req.body)}`)
+    const imgUrl = req.body.imgUrl
+    const user = req.body.user
+
+    User.update(
+      {profilePicture: imgUrl},
+      {where: {id: user}}
+    ).then(data => {
+        User.find({
+          where: {id:user}
+        }).then( user => {
+          console.log(`successfully updated! user is ${user}`)
+          res.status(201).send(user)
+        }).catch(err => res.status(500).send(err))
+        .then( () => {
+          User.findAll().then( (users) => {
+          console.log(`${JSON.stringify(users)}`)
+        })
+        })
+    })
+  })
 }

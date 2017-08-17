@@ -10,6 +10,7 @@ import FriendProfileRoute from './FriendProfileRoute.jsx';
 import ChatRoomList from './ChatRoomList.jsx';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import Dropzone from 'react-dropzone'
 
 const auth = new Auth();
 
@@ -184,6 +185,10 @@ class App extends Component {
 		document.getElementById('post-area').value='';
 	}
 
+	addPostImage(localFileURL) {
+		console.log(`Attach image button clicked`)
+	}
+
 	render() {
 		console.log('THIS IS THE PROPS.FRIENDS ::::: ', this.props.friends)
 
@@ -193,6 +198,7 @@ class App extends Component {
 				<div className="home-page-container">
 					<img src={this.props.user.profilePicture} id='statusPicture' />
 					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
+					<div className="input-button-container"><Button bsStyle="success" onClick={this.addPostImage.bind(this)}>Attach Image</Button></div>
 					<div className="input-button-container"><Button bsStyle="success" onClick={this.submitPost.bind(this)}>Post</Button></div>
 					<FeedList posts={this.props.posts} user={this.props.user} />
 				</div>

@@ -1,6 +1,8 @@
 const Post = require('../db/index').Post;
 const User = require('../db/index').User;
 const Friend = require('../db/index').Friend;
+const multer = require('multer')
+const cloudinary = require('cloudinary')
 
 module.exports = {
 
