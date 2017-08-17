@@ -180,12 +180,14 @@ class App extends Component {
 	}
 
 	render() {
+		console.log('THIS IS THE PROPS.FRIENDS ::::: ', this.props.friends)
 
 		return (
 			<div>
-				<Nav />
+				<Nav nickname={this.props.user.nickname} picture={this.props.user.profilePicture} />
 				<div className="home-page-container">
-					<textarea id="post-area" placeholder="What's on your mind?"></textarea>					
+					<img src={this.props.user.profilePicture} id='statusPicture' />
+					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
 					<div className="input-button-container"><Button bsStyle="success" onClick={this.submitPost.bind(this)}>Post</Button></div>
 					<FeedList posts={this.props.posts} user={this.props.user} />
 				</div>

@@ -22,7 +22,7 @@ class FriendList extends Component {
     return (
       <div>
         <div className="friend-list-container">
-          <p onClick={this.minimize}>Chat</p>
+          <p onClick={this.minimize}>Friends Online</p>
           <div className="friend-list">
             {
               this.props.friends.map((friend) => {
