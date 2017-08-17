@@ -34,6 +34,8 @@ class CreateEventForm extends Component {
     this.getValidationState = this.getValidationState.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
   }
 
   getValidationState() {
@@ -69,6 +71,30 @@ class CreateEventForm extends Component {
     })
   }
 
+  handleLocationChange(e) {
+    this.setState({
+      event: {
+        name: this.state.event.name,
+        date: this.state.event.date,
+        formattedDate: this.state.event.formattedDate,
+        location: e.target.value,
+        description: this.state.event.description,
+      }
+    })
+  }
+
+  handleDescriptionChange(e) {
+    this.setState({
+      event: {
+        name: this.state.event.name,
+        date: this.state.event.date,
+        formattedDate: this.state.event.formattedDate,
+        location: this.state.event.location,
+        description: e.target.value,
+      }
+    })
+  }
+
   componentDidUpdate() {
     let hiddenInputElement = document.getElementById("datepicker");
     console.log(hiddenInputElement.value, 'this is the ISO string date')
@@ -77,14 +103,13 @@ class CreateEventForm extends Component {
 
   render() {
     let { name, date, location, description } = event;
-    console.log(this.state, 'this is the state of the form')
     return (
       <Form horizontal>
         <FormGroup
           controlId="eventName"
           validationState={this.getValidationState()}
         >
-          <Col componentClass={ControlLabel} xs={3}>Event Name: </Col>
+          <Col componentClass={ControlLabel} xs={3}>Event Name:</Col>
           <Col xs={9}>
             <FormControl
               type="text"
@@ -97,9 +122,8 @@ class CreateEventForm extends Component {
           </Col>
         </FormGroup>
 
-
         <FormGroup controlId="eventDate">
-          <Col componentClass={ControlLabel} xs={3}>Date: </Col>
+          <Col componentClass={ControlLabel} xs={3}>Date:</Col>
           <Col xs={9}>
             <DatePicker 
               id="datepicker" 
@@ -110,8 +134,41 @@ class CreateEventForm extends Component {
           </Col>
         </FormGroup>
 
+        <FormGroup
+        controlId="eventLocation"
+        validationState={this.getValidationState()}
+        >
+          <Col componentClass={ControlLabel} xs={3}>Event Location:</Col>
+          <Col xs={9}>
+            <FormControl
+              type="text"
+              value={this.state.event.location}
+              placeholder="Where are you having your event?"
+              onChange={this.handleLocationChange}
+            />
+            <FormControl.Feedback />
+            <HelpBlock>Validation is based on string length</HelpBlock>
+          </Col>
+      </FormGroup>
 
-      </Form>
+      <FormGroup
+      controlId="eventDescription"
+      validationState={this.getValidationState()}
+      >
+        <Col componentClass={ControlLabel} xs={3}>Event Description:</Col>
+        <Col xs={9}>
+          <FormControl
+            type="text"
+            componentClass="textarea"
+            value={this.state.event.description}
+            placeholder="What's your event about?"
+            onChange={this.handleDescriptionChange}
+          />
+          <FormControl.Feedback />
+          <HelpBlock>Validation is based on string length</HelpBlock>
+        </Col>
+    </FormGroup>        
+  </Form>
     );
   }
 }
