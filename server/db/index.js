@@ -48,6 +48,13 @@ const Message = db.define('message', {
   from: {type: Sequelize.STRING, allowNull: false},
 });
 
+const Event = db.define('event', {
+  name: {type: Sequelize.STRING, allowNull: false},
+  date: {type: Sequelize.DATE, allowNull: false},
+  location: {type: Sequelize.STRING, allowNull: false},
+  description: {type: Sequelize.TEXT, allowNull: false},
+});
+
 User.belongsToMany(User, {
   as: 'buddy',
   through: Friend,
@@ -78,6 +85,7 @@ Post.sync();
 UserComment.sync();
 Like.sync();
 Message.sync();
+Event.sync();
 
 module.exports = {
   User,
@@ -85,5 +93,6 @@ module.exports = {
   Post,
   UserComment,
   Like,
-  Message
+  Message,
+  Event
 };

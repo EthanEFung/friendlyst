@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Nav from '../../Nav.jsx';
-import EventList from './EventList.jsx';
+import EventList from '../containers/EventsList.jsx';
+import CreateEventModal from '../containers/CreateEventModal.jsx';
 
-class eventsPage extends Component {
+
+// const mapStateToProps = (state) => {
+// 	return {
+// 		events: state.eventsReducer.events
+// 	}
+// }
+
+class EventsPage extends Component {
 
   render() {
     return (
@@ -12,15 +20,17 @@ class eventsPage extends Component {
           <Nav />
         </div>
         <div className="events-page-info">
-          <h1>Events</h1>
-          <br/>
-          <Link to="/create-event-page"><button className="create-event-button">Create Event</button></Link>
+          <h1 className="display-3">Events</h1>
+          <p className="lead">Attend an event near you</p>
+          <CreateEventModal />
+          <hr/>
+          <EventList />
         </div>
-        <EventList />
 
       </div>
     )
   }
 }
 
-export default eventsPage;
+// export default connect(mapStateToProps)(EventsPage)
+export default EventsPage

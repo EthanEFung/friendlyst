@@ -1,12 +1,17 @@
-module.exports = (state = {
-  comments: []
+export default (state = {
+  events: [],
+  event: {}
 }, action) => {
   switch (action.type) {
-    case 'RENDER_EVENTS_PAGE':
+    case 'GET_STORED_EVENTS':
       state = Object.assign({}, state, {
-        events: [...state.events, action.payload]
+        events: [...action.payload]
       })
       return state
+    case 'CREATE_NEW_EVENT':
+      state = Object.assign({}, state, {
+        event: action.payload
+      })  
     default:
       return state
   }

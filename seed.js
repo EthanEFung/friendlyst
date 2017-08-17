@@ -235,4 +235,38 @@ models.User.sync({
       force: true
     })
   })
+  .then(() => {
+    models.Event.sync({
+      force: true
+    })
+    .then(() => {
+      models.Event.bulkCreate([
+        {
+          name: `Ashley's birthday bash`,
+          date: new Date(2017, 7, 18),
+          location: `A hip bar`,
+          description: `Join us for Ashley's awesome birthday bash.  After a long day of adulting, you can expect to get loose!`
+        },
+        {
+          name: `Sam's birthday bash`,
+          date: new Date(2017, 7, 18),
+          location: `At his home`,
+          description: `Join us for Sam's awesome birthday bash.  After a long day of adulting, you can expect to rest!`
+        },
+        {
+          name: `David's birthday bash`,
+          date: new Date(2017, 7, 18),
+          location: `A coffee shop`,
+          description: `Join us for David's awesome birthday bash. Come chill with us!`
+        },
+        {
+          name: `Alex's birthday bash`,
+          date: new Date(2017, 7, 18),
+          location: `UltraZone`,
+          description: `Join us for Alex's awesome birthday bash.  You can expect to get loose!`
+        },
+      ])
+    })
+    .catch(err => console.log(`Error seeding the Events table: ${err}`))
+  })
   .catch(err => console.log(`Error seeding db! ${err}`))
