@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Nav from '../../Nav.jsx';
 import EventList from '../containers/EventsList.jsx';
-import CreateEventModal from '../containers/CreateEventModal.jsx';
+import CreateEventModal from '../components/CreateEventModal.jsx';
 
 
 // const mapStateToProps = (state) => {

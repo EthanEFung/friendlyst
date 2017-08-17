@@ -4,25 +4,14 @@ import {
   Modal, 
   Button,
 } from 'react-bootstrap';
-import CreateEventForm from './CreateEventForm.jsx';
-
-
-const mapStateToProps = (state) => {
-  return {
-    event: state.eventsReducer.event
-  }
-}
+import CreateEventForm from '../containers/CreateEventForm.jsx';
 
 class CreateEventModal extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showModal: false,
-      value: '',
-    }
+    this.state = { showModal: false }
     this.openCreateEventModal = this.openCreateEventModal.bind(this);
     this.closeCreateEventModal = this.closeCreateEventModal.bind(this);
-
   }
 
   closeCreateEventModal () {
@@ -34,7 +23,6 @@ class CreateEventModal extends Component {
   }
 
   render() {
-    let { name, date, location, description } = event;
     return (
     <div>
       <Button className="event-list-button btn btn-default" onClick={this.openCreateEventModal}>
@@ -57,4 +45,4 @@ class CreateEventModal extends Component {
 }
 
 //connect to store
-export default connect(mapStateToProps)(CreateEventModal);
+export default CreateEventModal;

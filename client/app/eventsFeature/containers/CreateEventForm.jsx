@@ -7,8 +7,13 @@ import {
   FormControl,
   ControlLabel,
   HelpBlock, 
-
 } from 'react-bootstrap';
+
+const mapStateToProps = (state) => {
+  return {
+    event: state.eventsReducer.event
+  }
+}
 
 class CreateEventForm extends Component {
   constructor(props) {
@@ -37,7 +42,7 @@ class CreateEventForm extends Component {
   }
 
   render() {
-    console.log(this, 'this is the form')
+    let { name, date, location, description } = event;
     return (
       <Form horizontal>
         <FormGroup
@@ -60,5 +65,4 @@ class CreateEventForm extends Component {
     );
   }
 }
-
-export default CreateEventForm;
+export default connect(mapStateToProps)(CreateEventForm);
