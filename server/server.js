@@ -45,11 +45,19 @@ io.on('connection', (socket) => {
     }
   })
 
+  socket.on('new post', (message) => {
+    io.emit('update posts', message)
+  })
+
   socket.on('private message', (msg) => {
     let socketTo = users[msg.to]
     let socketFrom = users[msg.from]
 
     io.sockets.connected[socketTo].emit('private message received', msg)
+  })
+
+  socket.on('submitted comment', () => {
+    io.emit('new comment')
   })
 
   socket.on('disconnect', () => {

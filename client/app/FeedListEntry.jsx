@@ -66,6 +66,20 @@ class FeedListEntry extends Component {
 		.catch(err => {
 			console.log(err, 'could not get data');
 		})
+
+		this.props.socket.on('new comment', () => {
+			axios.get(`api/usercomment/getAllCommentForPost?postId=${postId}`)
+			.then( (data) => {
+				this.setState({comments: data.data.sort( (a,b) => {
+					a = a.updatedAt;
+					b = b.updatedAt;
+					return a < b ? -1 : a > b ? 1 : 0;
+				})});
+			})
+			.catch(err => {
+				console.log(err, 'could not get data');
+			})
+		})
 	}
 
 	handleCommentInput(input) {
@@ -75,12 +89,12 @@ class FeedListEntry extends Component {
 
 	submitComment() {
 		console.log('comment button is clicked')
-		this.setState({currentComment: this.state.currentComment.concat([{
-			userComment: this.state.commentText,
-			postId: this.props.post.id,
-			userId: this.props.user.id,
-			updatedAt: new Date().toISOString()
-		}])})
+		// this.setState({currentComment: this.state.currentComment.concat([{
+		// 	userComment: this.state.commentText,
+		// 	postId: this.props.post.id,
+		// 	userId: this.props.user.id,
+		// 	updatedAt: new Date().toISOString()
+		// }])})
 
 		//should send comment request to server
 		let email = this.props.user.email;
@@ -93,6 +107,7 @@ class FeedListEntry extends Component {
 		})
 		.then(data => {
 			console.log(data);
+			this.props.socket.emit('submitted comment')
 		})
 		.catch(err => {
 			console.log('comment did not go through');

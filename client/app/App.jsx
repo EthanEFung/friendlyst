@@ -120,6 +120,29 @@ class App extends Component {
 		this.props.posts.sort((a, b) => b.id - a.id);
 	}
 
+	componentDidMount() {
+		this.socket = io('/')
+		//console.log('THIS IS THE SOCKET PROP ::: ', this.props.socket)
+		this.socket.on('update posts', (message) => {
+			let email = this.props.user.email;
+			axios.get(`api/post/getAllUserPost?email=${email}`)
+				.then(({ data }) => {
+					data.forEach(post => this.props.newPost(post))
+					axios.get(`api/post/getAllFriendPost/?email=${email}`)
+						.then(({ data }) => {
+							data.forEach(post => this.props.newPost(post))
+							this.props.posts.sort((a, b) => b.id - a.id);
+						})
+						.catch(err => {
+							console.log(`Error getting friend posts! ${err}`);
+						})
+				})
+				.catch(err => {
+					console.log(`Error getting user posts! ${err}`);
+			})
+		})
+	}
+
 	manageChat(nickname) {
 	
 		axios.get('/api/user/getUserFriend', {
@@ -143,7 +166,6 @@ class App extends Component {
 					this.setState({
 						friendLyst: data
 					})
-					this.socket = io('/');
 
 					this.socket.nickname = nickname
 
@@ -177,7 +199,8 @@ class App extends Component {
 			message: $('#post-area').val()
 		})
 			.then(({ data }) => {
-				this.props.newPost(data);
+				//this.props.newPost(data);
+				this.props.socket.emit('new post', data)
 			})
 			.catch(err => {
 				console.log(err);
@@ -190,7 +213,7 @@ class App extends Component {
 	}
 
 	render() {
-		console.log('THIS IS THE PROPS.FRIENDS ::::: ', this.props.friends)
+		//console.log('THIS IS THE PROPS.FRIENDS ::::: ', this.props.friends)
 
 		return (
 			<div>
@@ -200,7 +223,7 @@ class App extends Component {
 					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
 					<div className="input-button-container"><Button bsStyle="success" onClick={this.addPostImage.bind(this)}>Attach Image</Button></div>
 					<div className="input-button-container"><Button bsStyle="success" onClick={this.submitPost.bind(this)}>Post</Button></div>
-					<FeedList posts={this.props.posts} user={this.props.user} />
+					<FeedList posts={this.props.posts} user={this.props.user} socket={this.props.socket} />
 				</div>
 				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.props.socket} />
 				<ChatRoomList nickname={this.props.user.nickname} chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} userId={this.props.user.id} />
