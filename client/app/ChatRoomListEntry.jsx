@@ -29,17 +29,17 @@ class ChatRoomListEntry extends Component {
       this.setState({
         messages: [...this.state.messages, msg]
       }, () => {
-        Push.create(`New message from ${this.props.room.friend}!`, {
-          body: `${this.props.room.friend} sent you a message on Friendlyst!`,
-          timeout: 4000,
-          onClick: function() {
-            window.focus()
-            this.close()
-          }
-        })
+        let chatWindow = document.getElementById('chatWindow')
+        chatWindow.scrollTop = chatWindow.scrollHeight
       })
-      let chatWindow = document.getElementById('chatWindow')
-      chatWindow.scrollTop = chatWindow.scrollHeight
+      Push.create(`New message from ${this.props.room.friend}!`, {
+        body: `${this.props.room.friend} sent you a message on Friendlyst!`,
+        timeout: 4000,
+        onClick: function() {
+          window.focus()
+          this.close()
+        }
+      })
     })
 
     //this is finding a user by id
@@ -89,6 +89,9 @@ class ChatRoomListEntry extends Component {
 
     this.setState({
       messages: [...this.state.messages, msg]
+    }, () => {
+      let chatWindow = document.getElementById('chatWindow')
+      chatWindow.scrollTop = chatWindow.scrollHeight
     })
   }
 
