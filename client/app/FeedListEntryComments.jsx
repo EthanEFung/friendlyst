@@ -48,7 +48,6 @@ class FeedListEntryComments extends Component {
 		})
 	}
 	submitSubComment() {
-		console.log(this.refs.comment.value)
 		console.log('comment button is clicked')
 		this.setState({subcomments: this.state.subcomments.concat([{
 			userComment: this.state.subcommentText,
@@ -72,7 +71,9 @@ class FeedListEntryComments extends Component {
 		.catch(err => {
 			console.log('comment did not go through');
 		})
-		this.refs.comment.value = '';
+		this.setState({
+			subcommentText: ''
+		})
 		//document.getElementById('comment-area').val('');
 	}
 	timeSince(date) {
@@ -147,7 +148,7 @@ class FeedListEntryComments extends Component {
 									</div>
 									<div>
 										<form>
-										<textarea id="comment-area" onChange={(input) => this.handleSubCommentInput(input)} cols="30" rows="4" name="comment"></textarea>
+										<textarea id="comment-area" value={this.state.subcommentText} onChange={(input) => this.handleSubCommentInput(input)} cols="30" rows="4" name="comment"></textarea>
 										<div className="feed-entry-button-container">
 											<Button bsStyle="default" onClick={this.submitSubComment}>Comment</Button>
 										</div>

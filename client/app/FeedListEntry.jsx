@@ -97,7 +97,9 @@ class FeedListEntry extends Component {
 		.catch(err => {
 			console.log('comment did not go through');
 		})
-		document.getElementById('comment-area').value='';
+		this.setState({
+			commentText: ''
+		})
 	}
 
 	timeSince(date) {
@@ -153,7 +155,7 @@ class FeedListEntry extends Component {
 					</div>
 					<div>
 						<form>
-							<textarea id="comment-area" onChange={(input) => this.handleCommentInput(input)} cols="30" rows="4" name="comment"></textarea>
+							<textarea id="comment-area" value={this.state.commentText} onChange={(input) => this.handleCommentInput(input)} cols="30" rows="4" name="comment"></textarea>
 							<div className="feed-entry-button-container">
 								<Button bsStyle="default" onClick={this.submitComment}>Comment</Button>
 							</div>
