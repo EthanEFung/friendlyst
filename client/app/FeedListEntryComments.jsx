@@ -46,18 +46,35 @@ class FeedListEntryComments extends Component {
 		.catch(err => {
 			console.log(err, 'could not get data');
 		})
+
+		this.props.socket.on('new subcomment', (ID) => {
+			let commentId = this.props.comment.id;
+			if (ID === commentId) {
+				axios.get(`api/usercomment/getAllSubComments?parentId=${commentId}`)
+					.then( (data) => {
+						this.setState({subcomments: data.data.sort( (a,b) => {
+							a = a.updatedAt;
+							b = b.updatedAt;
+							return a < b ? -1 : a > b ? 1 : 0;
+						})});
+					})
+					.catch(err => {
+						console.log(err, 'could not get data SECOND ');
+					})
+			}
+		})
 	}
+
 	submitSubComment(e) {
-		console.log('comment button is clicked')
-		this.setState({subcomments: this.state.subcomments.concat([{
-			userComment: this.state.subcommentText,
-			parentId: this.props.comment.id,
-			userId: this.props.user.id,
-			updatedAt: new Date().toISOString()
-		}])})
-
 		e.preventDefault()
-
+		//console.log('comment button is clicked')
+		// this.setState({subcomments: this.state.subcomments.concat([{
+		// 	userComment: this.state.subcommentText,
+		// 	parentId: this.props.comment.id,
+		// 	userId: this.props.user.id,
+		// 	updatedAt: new Date().toISOString()
+		// }])})
+		console.log("CLICKED SUBMIT SUBCOMMENT BUTTON")
 		//should send comment request to server
 		let email = this.props.user.email;
 		let ID = this.props.comment.id;
@@ -67,10 +84,11 @@ class FeedListEntryComments extends Component {
 			message: this.state.subcommentText
 		})
 		.then(data => {
-			console.log(data);
+			console.log('SUCCESSFULLY POSTED SUBCOMMENT TO DATABASE :::: ', data);
+			this.props.socket.emit('submitted subcomment', ID)
 		})
 		.catch(err => {
-			console.log('comment did not go through');
+			console.log('subcomment did not go through');
 		})
 		this.setState({
 			subcommentText: ''
@@ -106,7 +124,7 @@ class FeedListEntryComments extends Component {
 		this.setState({ subcommentText: text });
 	}
 	render() {
-		console.log(this.state.subcomments)
+		//console.log(this.state.subcomments)
 		return (
 
 				<div className="comment-container">
@@ -126,12 +144,12 @@ class FeedListEntryComments extends Component {
 								<div className="subcomment-view" onClick={this.toggleShowSubComment}>
 									Hide Comments
 								</div>
-								<div  className="card" style={{border: "1px solid #839496", padding: "10px"}}>
+								<div  className="card" style={{padding: "10px"}}>
 									<form onSubmit={this.submitSubComment}>
-									<input type='text' placeholder='Make a comment...' ref="comment" id="comment-area" onChange={(input) => this.handleSubCommentInput(input)} cols="30" rows="4" name="comment"></input>
-									{/* <div className="feed-entry-button-container">
+										<input type='text' placeholder='Make a comment...' ref="comment" id="comment-area" onChange={(input) => this.handleSubCommentInput(input)} name="comment"></input>
+									<div className="feed-entry-button-container">
 										<Button bsStyle="default" onClick={this.submitSubComment}>Comment</Button>
-									</div> */}
+									</div>
 									</form>
 								</div>
 							</div>
@@ -140,7 +158,7 @@ class FeedListEntryComments extends Component {
 								<div className="subcomment-view" onClick={this.toggleShowSubComment}>
 									Hide Comments
 								</div>
-								<div  className="card" style={{border: "1px solid #839496", padding: "10px"}}>
+								<div  className="card" style={{padding: "30px"}}>
 									<div>
 										{this.state.subcomments.map((subcomment, key) => {
 											console.log(subcomment)
@@ -149,10 +167,10 @@ class FeedListEntryComments extends Component {
 									</div>
 									<div>
 										<form onSubmit={this.submitSubComment}>
-										<input type='text' placeholder='Make a comment...' ref="comment" id="comment-area" onChange={(input) => this.handleSubCommentInput(input)} cols="30" rows="4" name="comment"></input>
-										{/* <div className="feed-entry-button-container">
+											<input type='text' placeholder='Make a comment...' ref="comment" id="comment-area" onChange={(input) => this.handleSubCommentInput(input)} name="comment"></input>
+										<div className="feed-entry-button-container">
 											<Button bsStyle="default" onClick={this.submitSubComment}>Comment</Button>
-										</div> */}
+										</div>
 										</form>
 									</div>
 								</div>

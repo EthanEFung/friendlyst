@@ -35,7 +35,7 @@ class FeedListEntryLikes extends React.Component {
   checkLike() {
 		let userId = this.props.user.id;
     let postId = this.props.post.id;
-    console.log(this.state.userLike, 'liked status')
+    //console.log(this.state.userLike, 'liked status')
     if(this.state.userLike === '') {
       axios.post('api/like/likePost', {
         userId: userId,

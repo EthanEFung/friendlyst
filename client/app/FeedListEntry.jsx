@@ -100,14 +100,14 @@ class FeedListEntry extends Component {
 		//should send comment request to server
 		let email = this.props.user.email;
 		let ID = this.props.post.id;
-		console.log(email, ID, this.state.commentText)
+		//console.log(email, ID, this.state.commentText)
 		axios.post('api/usercomment/postComment', {
 			email: email,
 			postId: ID,
 			message: this.state.commentText
 		})
 		.then(data => {
-			console.log(data);
+			//console.log(data);
 			this.props.socket.emit('submitted comment')
 		})
 		.catch(err => {
@@ -163,13 +163,13 @@ class FeedListEntry extends Component {
 				</div>
 				<div className="comment-section">
 					<div className="feed-comments-container">
-						{this.state.comments.map((comment, key) =>
-						<FeedListEntryComments comment={comment} key={key} user={this.props.user}/>)}   
+						{this.state.comments.map((comment, key) => (
+						<FeedListEntryComments comment={comment} key={key} user={this.props.user} socket={this.props.socket}/>))}   
 					</div>  
-					<div className="feed-comments-container">
-						{this.state.currentComment.map((comment, key) =>
-						<FeedListEntryComments comment={comment} key={key} user={this.props.user}/>)}   
-					</div>
+					{/* <div className="feed-comments-container">
+						{this.state.currentComment.map((comment, key) => (
+						<FeedListEntryComments comment={comment} key={key} user={this.props.user} socket={this.props.socket}/>))}   
+					</div> */}
 					<div>
 						<form onSubmit={this.submitComment}>
 							<input type='text' id="comment-area" placeholder='Make a comment...' value={this.state.commentText} onChange={(input) => this.handleCommentInput(input)} cols="30" rows="4" name="comment"></input>

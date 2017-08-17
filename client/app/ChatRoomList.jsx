@@ -3,7 +3,7 @@ import ChatRoomListEntry from './ChatRoomListEntry.jsx'
 
 const ChatRoomList = (props) => {
   //each room will contain the user socket and the friend username
-  console.log('this is the userid', props.userId)
+  //console.log('this is the userid', props.userId)
   return (
     <div className="chatroom-container">
       {

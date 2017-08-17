@@ -60,6 +60,10 @@ io.on('connection', (socket) => {
     io.emit('new comment')
   })
 
+  socket.on('submitted subcomment', (ID) => {
+    io.emit('new subcomment', ID)
+  })
+
   socket.on('disconnect', () => {
     console.log('disconnecteddddddddddddd')
     delete users[socket.nickname]
