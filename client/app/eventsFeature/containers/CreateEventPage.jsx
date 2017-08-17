@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Nav from '../../Nav.jsx';
 
-class createEventPage extends Component {
+const mapStateToProps = (state) => {
+  return {
+    event: state.eventsReducer.event
+  }
+}
+
+class CreateEventPage extends Component {
   render() {
     return (
       <div className="events-page-container">
@@ -19,4 +26,4 @@ class createEventPage extends Component {
 }
 
 //connect to store
-export default createEventPage;
+export default connect(mapStateToProps)(CreateEventPage);
