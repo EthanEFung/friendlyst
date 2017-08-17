@@ -47,7 +47,7 @@ class FeedListEntryComments extends Component {
 			console.log(err, 'could not get data');
 		})
 	}
-	submitSubComment() {
+	submitSubComment(e) {
 		console.log('comment button is clicked')
 		this.setState({subcomments: this.state.subcomments.concat([{
 			userComment: this.state.subcommentText,
@@ -55,6 +55,8 @@ class FeedListEntryComments extends Component {
 			userId: this.props.user.id,
 			updatedAt: new Date().toISOString()
 		}])})
+
+		e.preventDefault()
 
 		//should send comment request to server
 		let email = this.props.user.email;
@@ -125,11 +127,11 @@ class FeedListEntryComments extends Component {
 									Hide Comments
 								</div>
 								<div  className="card" style={{border: "1px solid #839496", padding: "10px"}}>
-									<form>
-									<textarea ref="comment" className="comment-area" onChange={(input) => this.handleSubCommentInput(input)} cols="30" rows="4" name="comment"></textarea>
-									<div className="feed-entry-button-container">
+									<form onSubmit={this.submitSubComment}>
+									<input type='text' placeholder='Make a comment...' ref="comment" id="comment-area" onChange={(input) => this.handleSubCommentInput(input)} cols="30" rows="4" name="comment"></input>
+									{/* <div className="feed-entry-button-container">
 										<Button bsStyle="default" onClick={this.submitSubComment}>Comment</Button>
-									</div>
+									</div> */}
 									</form>
 								</div>
 							</div>
@@ -146,11 +148,11 @@ class FeedListEntryComments extends Component {
 										})}
 									</div>
 									<div>
-										<form>
-										<textarea id="comment-area" value={this.state.subcommentText} onChange={(input) => this.handleSubCommentInput(input)} cols="30" rows="4" name="comment"></textarea>
-										<div className="feed-entry-button-container">
+										<form onSubmit={this.submitSubComment}>
+										<input type='text' placeholder='Make a comment...' ref="comment" id="comment-area" onChange={(input) => this.handleSubCommentInput(input)} cols="30" rows="4" name="comment"></input>
+										{/* <div className="feed-entry-button-container">
 											<Button bsStyle="default" onClick={this.submitSubComment}>Comment</Button>
-										</div>
+										</div> */}
 										</form>
 									</div>
 								</div>
