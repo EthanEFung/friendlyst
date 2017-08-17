@@ -87,14 +87,15 @@ class FeedListEntry extends Component {
 		this.setState({ commentText: text });
 	}
 
-	submitComment() {
-		console.log('comment button is clicked')
+	submitComment(e) {
+		//console.log('comment button is clicked')
 		// this.setState({currentComment: this.state.currentComment.concat([{
 		// 	userComment: this.state.commentText,
 		// 	postId: this.props.post.id,
 		// 	userId: this.props.user.id,
 		// 	updatedAt: new Date().toISOString()
 		// }])})
+		e.preventDefault()
 
 		//should send comment request to server
 		let email = this.props.user.email;
@@ -169,11 +170,11 @@ class FeedListEntry extends Component {
 						<FeedListEntryComments comment={comment} key={key} user={this.props.user}/>)}   
 					</div>
 					<div>
-						<form>
-							<textarea id="comment-area" value={this.state.commentText} onChange={(input) => this.handleCommentInput(input)} cols="30" rows="4" name="comment"></textarea>
-							<div className="feed-entry-button-container">
+						<form onSubmit={this.submitComment}>
+							<input type='text' id="comment-area" placeholder='Make a comment...' value={this.state.commentText} onChange={(input) => this.handleCommentInput(input)} cols="30" rows="4" name="comment"></input>
+							{/* <div className="feed-entry-button-container">
 								<Button bsStyle="default" onClick={this.submitComment}>Comment</Button>
-							</div>
+							</div> */}
 						</form>
 					</div> 
 				</div>
