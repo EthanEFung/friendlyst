@@ -4,6 +4,7 @@ import $ from 'jquery'
 import MessageList from './MessageList.jsx'
 import axios from 'axios'
 import VIDEO_KEYS from '../../VIDEO_KEYS.js'
+import Push from 'push.js'
 
 class ChatRoomListEntry extends Component {
   constructor() {
@@ -27,6 +28,15 @@ class ChatRoomListEntry extends Component {
     this.props.room.user.on('private message received', msg => {
       this.setState({
         messages: [...this.state.messages, msg]
+      }, () => {
+        Push.create(`New message from ${this.props.room.friend}!`, {
+          body: `${this.props.room.friend} sent you a message on Friendlyst!`,
+          timeout: 4000,
+          onClick: function() {
+            window.focus()
+            this.close()
+          }
+        })
       })
       let chatWindow = document.getElementById('chatWindow')
       chatWindow.scrollTop = chatWindow.scrollHeight

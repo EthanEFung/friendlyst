@@ -9,16 +9,16 @@ export default class MessageList extends React.Component {
     super(props)
   }
 
-  componentWillReceiveProps(nextProps) {
-    Push.create('New message!', {
-      body: 'You received a new message on Friendlyst!',
-      timeout: 4000,
-      onClick: function() {
-        window.focus()
-        this.close()
-      }
-    })
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   Push.create(`New message from ${this.props.friend}!`, {
+  //     body: `${this.props.friend} sent you a message on Friendlyst!`,
+  //     timeout: 4000,
+  //     onClick: function() {
+  //       window.focus()
+  //       this.close()
+  //     }
+  //   })
+  // }
 
   render() {
     return (
