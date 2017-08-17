@@ -23,7 +23,11 @@ const Friend = db.define('friend', {});
 const Post = db.define('post', {
   message: {
     type: Sequelize.TEXT,
-    allowNull: false
+    allowNull: false,
+  },
+  image: {
+    type: Sequelize.TEXT,
+    allowNull: true
   }
 });
 

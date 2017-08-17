@@ -8,5 +8,6 @@ router.get('/getUserById', controller.getUserById);
 router.get('/getUsersById', controller.getUsersById);
 router.get('/getAllUser', controller.getAllUser);
 router.put('/changePic', controller.changePic);
+router.post('/addOrUpdateProfileImageLink', controller.addOrUpdateProfileImageLink);
 
 module.exports = router;

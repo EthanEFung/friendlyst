@@ -11,7 +11,7 @@ require('dotenv').config({
 const db = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
   pool: {
-    max: 3,
+    max: 20,
     min: 0,
     idle: 1000
   }
