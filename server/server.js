@@ -56,8 +56,8 @@ io.on('connection', (socket) => {
     io.sockets.connected[socketTo].emit('private message received', msg)
   })
 
-  socket.on('submitted comment', () => {
-    io.emit('new comment')
+  socket.on('submitted comment', (ID) => {
+    io.emit('new comment', ID)
   })
 
   socket.on('submitted subcomment', (ID) => {

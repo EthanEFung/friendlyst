@@ -67,18 +67,20 @@ class FeedListEntry extends Component {
 			console.log(err, 'could not get data');
 		})
 
-		this.props.socket.on('new comment', () => {
-			axios.get(`api/usercomment/getAllCommentForPost?postId=${postId}`)
-			.then( (data) => {
-				this.setState({comments: data.data.sort( (a,b) => {
-					a = a.updatedAt;
-					b = b.updatedAt;
-					return a < b ? -1 : a > b ? 1 : 0;
-				})});
-			})
-			.catch(err => {
-				console.log(err, 'could not get data');
-			})
+		this.props.socket.on('new comment', (ID) => {
+			if (postId === ID) {
+				axios.get(`api/usercomment/getAllCommentForPost?postId=${postId}`)
+					.then( (data) => {
+						this.setState({comments: data.data.sort( (a,b) => {
+							a = a.updatedAt;
+							b = b.updatedAt;
+							return a < b ? -1 : a > b ? 1 : 0;
+						})});
+					})
+					.catch(err => {
+						console.log(err, 'could not get data');
+					})
+			}
 		})
 	}
 
@@ -108,7 +110,7 @@ class FeedListEntry extends Component {
 		})
 		.then(data => {
 			//console.log(data);
-			this.props.socket.emit('submitted comment')
+			this.props.socket.emit('submitted comment', ID)
 		})
 		.catch(err => {
 			console.log('comment did not go through');
