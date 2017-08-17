@@ -1,6 +1,5 @@
 export default (state = {
-  events: [],
-  event: {}
+  events: []
 }, action) => {
   switch (action.type) {
     case 'GET_STORED_EVENTS':
@@ -10,7 +9,7 @@ export default (state = {
       return state
     case 'CREATE_NEW_EVENT':
       state = Object.assign({}, state, {
-        event: action.payload
+        events: [action.payload, ...state.events]
       })  
     default:
       return state

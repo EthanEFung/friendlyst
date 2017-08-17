@@ -7,6 +7,7 @@ import {
   FormControl,
   ControlLabel,
   HelpBlock, 
+  Button
 } from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker'
 import createNewEvent from '../actions/createNewEvent.js'
@@ -20,11 +21,10 @@ const mapStateToProps = (state) => {
 class CreateEventForm extends Component {
   constructor(props) {
     super(props);
-    let date = new Date().toISOString();
     this.state = {
       event: {
         name: '',
-        date: date,
+        date: new Date().toISOString(),
         formattedDate: '',
         location: '',
         description: '',
@@ -36,18 +36,20 @@ class CreateEventForm extends Component {
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.handleEventSubmit = this.handleEventSubmit.bind(this);
   }
 
   getValidationState() {
-    length = this.state.event.name.length;
-    if (length > 10) {
-      return 'success';
-    } else if (length > 5){
-      return 'warning';
-    } else {
-      return 'error';
-    }
+    // length = this.state.event.name.length;
+    // if (length > 10) {
+    //   return 'success';
+    // } else if (length > 5){
+    //   return 'warning';
+    // } else {
+    //   return 'error';
+    // }
   }
+
   handleNameChange(e) {
     this.setState({ 
       event: { 
@@ -59,6 +61,7 @@ class CreateEventForm extends Component {
        }
     })
   }
+
   handleDateChange(value, formattedDate) {
     this.setState({ 
       event: {
@@ -94,11 +97,15 @@ class CreateEventForm extends Component {
       }
     })
   }
+  
+  handleEventSubmit() {
+    this.props.createNewEvent(this.state.event);
+  }
 
   componentDidUpdate() {
-    let hiddenInputElement = document.getElementById("datepicker");
-    console.log(hiddenInputElement.value, 'this is the ISO string date')
-    console.log(hiddenInputElement.getAttribute('data-formattedvalue'))
+    // let hiddenInputElement = document.getElementById("datepicker");
+    // console.log(hiddenInputElement.value, 'this is the ISO string date')
+    // console.log(hiddenInputElement.getAttribute('data-formattedvalue'))
   }
 
   render() {
@@ -167,8 +174,11 @@ class CreateEventForm extends Component {
           <FormControl.Feedback />
           <HelpBlock>Validation is based on string length</HelpBlock>
         </Col>
-    </FormGroup>        
-  </Form>
+      </FormGroup>   
+      <Button block onClick={this.handleEventSubmit}>
+        Create Event
+      </Button>     
+    </Form>
     );
   }
 }

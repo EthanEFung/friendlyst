@@ -9,17 +9,17 @@ import CreateEventForm from '../containers/CreateEventForm.jsx';
 class CreateEventModal extends Component {
   constructor(props) {
     super(props);
-    this.state = { showModal: false }
+    this.state = {showModal:false};
     this.openCreateEventModal = this.openCreateEventModal.bind(this);
     this.closeCreateEventModal = this.closeCreateEventModal.bind(this);
   }
 
   closeCreateEventModal () {
-    this.setState({showModal: false});
+    this.setState({showModal:false});
   }
 
   openCreateEventModal () {
-    this.setState({showModal: true}, () => console.log(this, 'this is what now has the state'));
+    this.setState({showModal:true});
   }
 
   render() {
@@ -44,5 +44,4 @@ class CreateEventModal extends Component {
   }
 }
 
-//connect to store
 export default CreateEventModal;
