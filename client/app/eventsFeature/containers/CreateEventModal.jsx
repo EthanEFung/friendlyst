@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { 
   Modal, 
   Button,
+  Col,
+  Form,
   FormGroup,
   FormControl,
   ControlLabel,
@@ -29,7 +31,7 @@ class CreateEventModal extends Component {
     this.handleValueChange = this.handleValueChange.bind(this);
   }
 
-  getValidationState() {
+  getValidationState(value) {
     length = this.state.value.length;
     if (length > 10) {
       return 'success';
@@ -64,22 +66,24 @@ class CreateEventModal extends Component {
           <Modal.Title>Create Event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form>
+          <Form horizontal>
             <FormGroup
-              controlId="formBasicText"
+              controlId="eventName"
               validationState={this.getValidationState()}
             >
-              <ControlLabel>Example with Validation</ControlLabel>
-              <FormControl
-                type="text"
-                value={this.state.value}
-                placeholder="Enter text"
-                onChange={this.handleValueChange}
-              />
-              <FormControl.Feedback />
-              <HelpBlock>Validation is based on string length</HelpBlock>
+              <Col componentClass={ControlLabel} sm={2}>Event Name</Col>
+              <Col sm={10}>
+                <FormControl
+                  type="text"
+                  value={this.state.value}
+                  placeholder="Enter the event's name"
+                  onChange={this.handleValueChange}
+                />
+                <FormControl.Feedback />
+                <HelpBlock>Validation is based on string length</HelpBlock>
+              </Col>
             </FormGroup>
-          </form>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.closeCreateEventModal}>Close</Button>
