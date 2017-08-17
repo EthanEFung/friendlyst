@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import Nav from '../../Nav.jsx';
 import EventList from '../containers/EventsList.jsx';
 
-const mapStateToProps = (state) => {
-	return {
-		events: state.eventsReducer.events
-	}
-}
+// const mapStateToProps = (state) => {
+// 	return {
+// 		events: state.eventsReducer.events
+// 	}
+// }
 
 class EventsPage extends Component {
   render() {
@@ -19,7 +19,7 @@ class EventsPage extends Component {
         </div>
         <div className="events-page-info">
           <h1 className="display-3">Events</h1>
-          <p className="lead">These are the events in your area</p>
+          <p className="lead">Attend </p>
           <button className="event-list-button btn btn-default">See events</button>
           <Link to="/create-event-page"><button className="btn btn-default">Create Event</button></Link>
           <hr/>
@@ -31,4 +31,5 @@ class EventsPage extends Component {
   }
 }
 
-export default connect(mapStateToProps, {  })(EventsPage)
+// export default connect(mapStateToProps)(EventsPage)
+export default EventsPage

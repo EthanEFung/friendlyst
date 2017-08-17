@@ -18,4 +18,5 @@ class createEventPage extends Component {
   }
 }
 
+//connect to store
 export default createEventPage;
