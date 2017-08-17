@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Button } from 'react-bootstrap';
+import { 
+  Modal, 
+  Button,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  HelpBlock, 
+} from 'react-bootstrap';
 
 
 const mapStateToProps = (state) => {
@@ -12,9 +19,29 @@ const mapStateToProps = (state) => {
 class CreateEventModal extends Component {
   constructor(props) {
     super(props);
-    this.state = {showModal: false}
+    this.state = {
+      showModal: false,
+      value: '',
+    }
     this.openCreateEventModal = this.openCreateEventModal.bind(this);
     this.closeCreateEventModal = this.closeCreateEventModal.bind(this);
+    this.getValidationState = this.getValidationState.bind(this);
+    this.handleValueChange = this.handleValueChange.bind(this);
+  }
+
+  getValidationState() {
+    length = this.state.value.length;
+    if (length > 10) {
+      return 'success';
+    } else if (length > 5){
+      return 'warning';
+    } else {
+      return 'error';
+    }
+  }
+
+  handleValueChange(e) {
+    this.setState({ value: e.target.value })
   }
 
   closeCreateEventModal () {
@@ -37,9 +64,22 @@ class CreateEventModal extends Component {
           <Modal.Title>Create Event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>This is where the Body of the Modal will reside</p>
-          <hr />
-          <p>Cool aye?</p>
+          <form>
+            <FormGroup
+              controlId="formBasicText"
+              validationState={this.getValidationState()}
+            >
+              <ControlLabel>Example with Validation</ControlLabel>
+              <FormControl
+                type="text"
+                value={this.state.value}
+                placeholder="Enter text"
+                onChange={this.handleValueChange}
+              />
+              <FormControl.Feedback />
+              <HelpBlock>Validation is based on string length</HelpBlock>
+            </FormGroup>
+          </form>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.closeCreateEventModal}>Close</Button>
