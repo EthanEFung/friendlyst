@@ -89,7 +89,12 @@ class App extends Component {
 	}
 
 	componentWillMount() {
-		auth.handleAuthentication(this.props.newUser, this.manageChat.bind(this));
+		if (!auth.isAuthenticated()) {
+			auth.handleAuthentication(this.props.newUser, this.manageChat.bind(this));
+		} else {
+			auth.handleAuthentication(this.props.newUser, this.manageChat.bind(this))
+		}
+		
 
 		setTimeout(() => {
 			if (!this.props.posts.length) {

@@ -1,16 +1,32 @@
 import React from 'react'
 import MessageListEntry from './MessageListEntry.jsx'
+import Push from 'push.js'
 
 
-const MessageList = ({ messages, friend, user }) => {
+export default class MessageList extends React.Component {
 
-  return (
-    <div className="message-list">
-      {
-        messages.map(message => <MessageListEntry message={message} friend={friend} user={user} />)
+  constructor(props) {
+    super(props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    Push.create('New message!', {
+      body: 'You received a new message on Friendlyst!',
+      timeout: 4000,
+      onClick: function() {
+        window.focus()
+        this.close()
       }
-    </div>
-  )
-}
+    })
+  }
 
-export default MessageList
+  render() {
+    return (
+      <div className="message-list">
+        {
+          this.props.messages.map(message => <MessageListEntry message={message} friend={this.props.friend} user={this.props.user} />)
+        }
+      </div>
+    )
+  }
+}
