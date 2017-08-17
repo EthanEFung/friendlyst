@@ -3,13 +3,8 @@ import { connect } from 'react-redux';
 import { 
   Modal, 
   Button,
-  Col,
-  Form,
-  FormGroup,
-  FormControl,
-  ControlLabel,
-  HelpBlock, 
 } from 'react-bootstrap';
+import CreateEventForm from './CreateEventForm.jsx';
 
 
 const mapStateToProps = (state) => {
@@ -27,23 +22,7 @@ class CreateEventModal extends Component {
     }
     this.openCreateEventModal = this.openCreateEventModal.bind(this);
     this.closeCreateEventModal = this.closeCreateEventModal.bind(this);
-    this.getValidationState = this.getValidationState.bind(this);
-    this.handleValueChange = this.handleValueChange.bind(this);
-  }
 
-  getValidationState(value) {
-    length = this.state.value.length;
-    if (length > 10) {
-      return 'success';
-    } else if (length > 5){
-      return 'warning';
-    } else {
-      return 'error';
-    }
-  }
-
-  handleValueChange(e) {
-    this.setState({ value: e.target.value })
   }
 
   closeCreateEventModal () {
@@ -66,24 +45,7 @@ class CreateEventModal extends Component {
           <Modal.Title>Create Event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form horizontal>
-            <FormGroup
-              controlId="eventName"
-              validationState={this.getValidationState()}
-            >
-              <Col componentClass={ControlLabel} sm={2}>Event Name</Col>
-              <Col sm={10}>
-                <FormControl
-                  type="text"
-                  value={this.state.value}
-                  placeholder="Enter the event's name"
-                  onChange={this.handleValueChange}
-                />
-                <FormControl.Feedback />
-                <HelpBlock>Validation is based on string length</HelpBlock>
-              </Col>
-            </FormGroup>
-          </Form>
+          <CreateEventForm />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.closeCreateEventModal}>Close</Button>
