@@ -651,3 +651,10 @@ body {
 .post-preview-thumbnail {
   height: 100%;
 }
+
+#upload-photo-button {
+  height: 15px;
+  width: auto;
+  margin-left: 10px;
+  margin-bottom: 2px;
+}
