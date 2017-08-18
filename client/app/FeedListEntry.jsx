@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import FeedListEntryLikes from './FeedListEntryLikes.jsx';
 import FeedListEntryComments from './FeedListEntryComments.jsx';
 import axios from 'axios';
-import { Button } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 
 const mapStateToProps = (state) => {
@@ -29,12 +29,15 @@ const mapDispatchToProps = (dispatch) => {
 class FeedListEntry extends Component {
 	constructor(props) {
 		super(props);
+		this.openPhotoModal = this.openPhotoModal.bind(this);
+    this.closePhotoModal = this.closePhotoModal.bind(this);
 		this.state = {
 			comments: [],
 			currentComment:[],
 			commentText: '',
 			name: '',
-			imageLink: ''
+			imageLink: '',
+			showModal: false
 		}
 		this.handleCommentInput = this.handleCommentInput.bind(this);
 		this.submitComment = this.submitComment.bind(this);
@@ -145,6 +148,14 @@ class FeedListEntry extends Component {
 		return Math.floor(seconds) + " seconds";
 	}
 
+	closePhotoModal () {
+    this.setState({showModal:false});
+  }
+
+  openPhotoModal () {
+    this.setState({showModal:true});
+  }
+
 	render() {
 		return (
 			<div className="feed-entry">
@@ -156,7 +167,12 @@ class FeedListEntry extends Component {
 						</Link>
 						<div className="post-time">{this.timeSince(new Date(this.props.post.createdAt))} ago</div>
 						<div className="post-message">{this.props.post.message}</div>
-						<img className="post-image" src={this.props.post.image}/>
+						<img className="post-image" src={this.props.post.image} onClick={this.openPhotoModal}/>
+						<Modal show={this.state.showModal} onHide={this.closePhotoModal} className="photo-modal">
+        			<Modal.Body closeButton>
+          			<img className="enlarged-post-image" src={this.props.post.image}/>
+        			</Modal.Body>
+				      </Modal>
 					</div>
 				</div>
 
