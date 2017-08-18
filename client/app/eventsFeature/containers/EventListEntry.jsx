@@ -56,7 +56,6 @@ class EventListEntry extends Component {
           >
           <MenuItem eventKey="1" onClick={this.handleDeleteClick} id={id}>Delete</MenuItem>
           <MenuItem eventKey="2" onClick={this.handleUpdateClick} id={id}>Update</MenuItem>
-
          
           </DropdownButton>
         </Col>

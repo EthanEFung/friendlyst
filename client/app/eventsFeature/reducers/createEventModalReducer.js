@@ -4,11 +4,11 @@ export default (state = {
   switch (action.type) {
     case 'OPEN_MODAL':
       state = Object.assign({}, state, {
-        showModal: true
+        showModal: action.payload
      }) 
     case 'CLOSE_MODAL':
       state = Object.assign({}, state, {
-        showModal: false
+        showModal: action.payload
       })
     default:
       return state

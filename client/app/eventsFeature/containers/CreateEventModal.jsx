@@ -10,7 +10,7 @@ import openModal from '../actions/openModal.js';
 
 const mapStateToProps = (state) => {
 	return {
-		showModal: state.eventsReducer.showModal
+		showModal: state.createEventModalReducer.showModal
 	}
 }
 
@@ -21,17 +21,16 @@ class CreateEventModal extends Component {
     this.closeCreateEventModal = this.closeCreateEventModal.bind(this);
   }
 
-  closeCreateEventModal () {
-    console.log('trying to close modal')
-    closeModal()
+  closeCreateEventModal() {
+    this.props.closeModal(false);
   }
 
-  openCreateEventModal () {
-    console.log('trying to open modal', this.props)
-    openModal();
+  openCreateEventModal() {
+    this.props.openModal(true);
   }
 
   render() {
+    console.log(this.props)
     return (
     <div>
       <Button className="event-list-button btn btn-default" onClick={this.openCreateEventModal}>
@@ -51,4 +50,4 @@ class CreateEventModal extends Component {
 }
 // Cancel and Save Buttons are found in the CreateEventForm Modal
 
-export default CreateEventModal;
+export default connect(mapStateToProps, { closeModal, openModal })(CreateEventModal)

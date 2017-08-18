@@ -22,6 +22,7 @@ import chatRoomReducer from './reducer/chatRoomReducer.js'
 import commentReducer from './reducer/commentReducer.js'
 import socketReducer from './reducer/socketReducer.js'
 import eventsReducer from './eventsFeature/reducers/eventsReducer.js'
+import createEventModalReducer from './eventsFeature/reducers/createEventModalReducer.js'
 import $ from 'jquery';
 
 const reducers = combineReducers({
@@ -33,7 +34,8 @@ const reducers = combineReducers({
    friendinfoReducer,
    commentReducer,
    socketReducer,
-   eventsReducer
+   eventsReducer,
+   createEventModalReducer,
 })
 //events reducer and eventsPage is found in the eventsFeature repo
 
