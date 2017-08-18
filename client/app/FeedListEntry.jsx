@@ -172,7 +172,7 @@ class FeedListEntry extends Component {
         			<Modal.Body closeButton>
           			<img className="enlarged-post-image" src={this.props.post.image}/>
         			</Modal.Body>
-				      </Modal>
+						</Modal>
 					</div>
 				</div>
 

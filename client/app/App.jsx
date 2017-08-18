@@ -11,6 +11,7 @@ import ChatRoomList from './ChatRoomList.jsx';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import Dropzone from 'react-dropzone';
+import { Modal } from 'react-bootstrap';
 
 const auth = new Auth();
 
@@ -90,8 +91,11 @@ class App extends Component {
 			postURL: '',
 			imageURL: '',
 			postButtonStatus: false,
-			previewThumbnail: false
+			previewThumbnail: false,
+			showGameModal: false
 		}
+		this.closeGameModal = this.closeGameModal.bind(this)
+		this.openGameModal = this.openGameModal.bind(this)
 	}
 
 	componentWillMount() {
@@ -252,12 +256,25 @@ class App extends Component {
 		})
 	}
 
+	openGameModal() {
+		console.log('CLICKED OPEN GAME MODAL FUNCTION')
+    this.setState({
+      showGameModal: true
+		})
+  }
+
+  closeGameModal() {
+    this.setState({
+      showGameModal: false
+    })
+  }
+
 	render() {
 		//console.log('THIS IS THE PROPS.FRIENDS ::::: ', this.props.friends)
 
 		return (
 			<div>
-				<Nav nickname={this.props.user.nickname} picture={this.props.user.profilePicture} />
+				<Nav nickname={this.props.user.nickname} picture={this.props.user.profilePicture} handleGameModalOpen={this.openGameModal} />
 				<div className="home-page-container">
 					<div className="post-section">
 						<div className="flexbox2">
@@ -297,6 +314,11 @@ class App extends Component {
 					</div>
 					<FeedList posts={this.props.posts} user={this.props.user} socket={this.props.socket} />
 				</div>
+				<Modal dialogClassName="custom-modal" show={this.state.showGameModal} onHide={this.closeGameModal}>
+						<Modal.Body>
+							<iframe width='1260' height='700' frameBorder='0' src='http://boomboomcats.herokuapp.com'></iframe>
+						</Modal.Body>
+					</Modal>
 				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.props.socket} />
 				<ChatRoomList nickname={this.props.user.nickname} chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} userId={this.props.user.id} />
 			</div>
