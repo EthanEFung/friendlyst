@@ -147,9 +147,9 @@ class FeedListEntryComments extends Component {
 								<div  className="card" style={{padding: "10px"}}>
 									<form onSubmit={this.submitSubComment}>
 										<input type='text' placeholder='Make a comment...' ref="comment" id="comment-area" onChange={(input) => this.handleSubCommentInput(input)} name="comment"></input>
-									<div className="feed-entry-button-container">
+									{/* <div className="feed-entry-button-container">
 										<Button bsStyle="default" onClick={this.submitSubComment}>Comment</Button>
-									</div>
+									</div> */}
 									</form>
 								</div>
 							</div>
@@ -168,9 +168,9 @@ class FeedListEntryComments extends Component {
 									<div>
 										<form onSubmit={this.submitSubComment}>
 											<input type='text' placeholder='Make a comment...' ref="comment" id="comment-area" onChange={(input) => this.handleSubCommentInput(input)} name="comment"></input>
-										<div className="feed-entry-button-container">
+										{/* <div className="feed-entry-button-container">
 											<Button bsStyle="default" onClick={this.submitSubComment}>Comment</Button>
-										</div>
+										</div> */}
 										</form>
 									</div>
 								</div>
