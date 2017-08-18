@@ -87,7 +87,9 @@ class App extends Component {
 		this.state = {
 			friendLyst: [],
 			socket: {},
-			postURL: ''
+			postURL: '',
+			imageURL: '',
+			postButtonStatus: false
 		}
 	}
 
@@ -195,13 +197,13 @@ class App extends Component {
 		})		
 	}
 
-	submitPost(imageURL) {
+	submitPost() {
 		console.log('now im in this.submitPost')
 
 		axios.post('api/post/postPost', {
 			email: this.props.user.email,
 			message: $('#post-area').val(),
-			image: imageURL || null
+			image: this.state.imageURL
 		})
 			.then(({ data }) => {
 				console.log(`this.submitPost data is ${JSON.stringify(data)}`)
@@ -222,25 +224,32 @@ class App extends Component {
 	}
 
 	addPostImage(files) {
-		console.log(`Dropzone activated`)
-		const uploaders = files.map( (file) => {
-			const formData = new FormData()
-			formData.append('file', file)
-			formData.append('tags', `dyrwrlv2h, medium, gist`)
-			formData.append('upload_preset', 'twliuw5d')
-			formData.append('api_key', '377437738276986')
-			formData.append('timestamp', (Date.now() / 1000) | 0)
+		this.setState({
+			postButtonStatus: true
+		}, () => {
+			console.log(`Dropzone activated`)
+			const uploaders = files.map( (file) => {
+				const formData = new FormData()
+				formData.append('file', file)
+				formData.append('tags', `dyrwrlv2h, medium, gist`)
+				formData.append('upload_preset', 'twliuw5d')
+				formData.append('api_key', '377437738276986')
+				formData.append('timestamp', (Date.now() / 1000) | 0)
 
-			return axios.post('https://api.cloudinary.com/v1_1/dyrwrlv2h/image/upload', formData, {
-				headers: { "X-Requested-With": "XMLHttpRequest" }
-			}).then( (response) => {
-				const data = response.data
-        const imageURL = data.secure_url
-        console.log(`this is the fileURL ${imageURL}`)
-        console.log(`this is the data ${JSON.stringify(data)}`)
-        console.log(`this is this.props.user ${JSON.stringify(this.props.user)}`)
-        this.submitPost(imageURL)
-      })
+				return axios.post('https://api.cloudinary.com/v1_1/dyrwrlv2h/image/upload', formData, {
+					headers: { "X-Requested-With": "XMLHttpRequest" }
+				}).then( (response) => {
+					const data = response.data
+					const imageURL = data.secure_url
+					console.log(`this is the fileURL ${imageURL}`)
+					console.log(`this is the data ${JSON.stringify(data)}`)
+					console.log(`this is this.props.user ${JSON.stringify(this.props.user)}`)
+					this.setState({
+						imageURL: imageURL,
+						postButtonStatus: false
+					})
+				})
+			})
 		})
 	}
 
@@ -259,7 +268,7 @@ class App extends Component {
 									multiple
 									accept="image/*"
 									className="post-dropzone"
-									disableClick="true"
+									disableClick={true}
 								>
 								<textarea id="post-area" placeholder="What's on your mind?"></textarea>
 								<img src={this.props.user.profilePicture} id='statusPicture' />
@@ -268,8 +277,21 @@ class App extends Component {
 						</div>
 						<div className="flexbox">
 							<div className="post-features">
-								<span className="input-button-container post-submit-button"><Button bsStyle="success" onClick={this.submitPost.bind(this)}>Post</Button></span>
-								<span className="input-button-container post-image-upload-button"><Button bsStyle="success" onClick={this.addPostImage.bind(this)}>Attach Image</Button></span>
+								<span className="input-button-container post-submit-button"><Button bsStyle="success" disabled={this.state.postButtonStatus} onClick={this.submitPost.bind(this)}>Post</Button></span>
+								<span className="input-button-container post-image-upload-button">
+									<Button bsStyle="success">
+										<div className="limit-dropzone">
+											<Dropzone
+												preventDropOnDocument={false}
+												onDrop={this.addPostImage}
+												multiple={false}
+												className="post-image-button-dropzone"
+											>
+											Attach Image
+											</Dropzone>
+										</div>
+									</Button>
+								</span>
 							</div>
 						</div>
 					</div>

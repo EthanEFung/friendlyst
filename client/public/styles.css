@@ -156,6 +156,7 @@ body {
   text-align: left;
   border-radius: 4px;
   margin-left:3%;
+  resize: none;
 }
 
 .input-button-container {
@@ -619,4 +620,19 @@ body {
 
 .flexbox-container {
   display: flex;
+}
+
+.test-image {
+  display: none;
+}
+
+.limit-dropzone {
+  width:100%;
+  height:100%;
+}
+
+.post-image-upload-button {
+  position: relative;
+  width:100%;
+  height:100%;
 }
