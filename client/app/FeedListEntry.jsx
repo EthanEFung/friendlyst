@@ -4,7 +4,7 @@ import FeedListEntryLikes from './FeedListEntryLikes.jsx';
 import FeedListEntryComments from './FeedListEntryComments.jsx';
 import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
 	//state.SOMETHING is the reducer

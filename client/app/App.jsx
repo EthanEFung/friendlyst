@@ -10,7 +10,7 @@ import FriendProfileRoute from './FriendProfileRoute.jsx';
 import ChatRoomList from './ChatRoomList.jsx';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import Dropzone from 'react-dropzone'
+import Dropzone from 'react-dropzone';
 
 const auth = new Auth();
 
@@ -89,7 +89,8 @@ class App extends Component {
 			socket: {},
 			postURL: '',
 			imageURL: '',
-			postButtonStatus: false
+			postButtonStatus: false,
+			previewThumbnail: false
 		}
 	}
 
@@ -221,6 +222,9 @@ class App extends Component {
 			// 	console.log(err);
 			// })
 		document.getElementById('post-area').value='';
+		this.setState({
+			previewThumbnail: ''
+		})
 	}
 
 	addPostImage(files) {
@@ -244,9 +248,11 @@ class App extends Component {
 					console.log(`this is the fileURL ${imageURL}`)
 					console.log(`this is the data ${JSON.stringify(data)}`)
 					console.log(`this is this.props.user ${JSON.stringify(this.props.user)}`)
+
 					this.setState({
 						imageURL: imageURL,
-						postButtonStatus: false
+						postButtonStatus: false,
+						previewThumbnail: true
 					})
 				})
 			})
@@ -292,6 +298,7 @@ class App extends Component {
 										</div>
 									</Button>
 								</span>
+								{this.state.previewThumbnail ? <span className="post-preview-thumbnail-section"><img className="post-preview-thumbnail" src={this.state.imageURL}/></span>: <span></span>}
 							</div>
 						</div>
 					</div>
