@@ -42,6 +42,7 @@ class Nav extends Component {
     <div id="nav-bar">
       <Link to="/home" className="nav-bar-image"><img className="resize2" src="friendlystlogo.jpg" /></Link>
       <button className="buttons" onClick={() => auth.logout()}>Logout</button>
+      <button className='buttons'><a href='http://boomboomcats.herokuapp.com'>BoomBoom Cats</a></button>
       <Link to="/events-page"><button className="buttons">Events</button></Link>
       <Link to="/profile">
         <button className="buttons">{this.props.nickname}</button>

@@ -5,6 +5,7 @@ import MessageList from './MessageList.jsx'
 import axios from 'axios'
 import VIDEO_KEYS from '../../VIDEO_KEYS.js'
 import Push from 'push.js'
+import Dropzone from 'react-dropzone';
 
 class ChatRoomListEntry extends Component {
   constructor() {
@@ -13,7 +14,7 @@ class ChatRoomListEntry extends Component {
       value: '',
       messages: [],
       friendId: '',
-      showCallButton: false
+      showCallButton: false,
     }
     this.handleVideoClick = this.handleVideoClick.bind(this)
     this.makeCall = this.makeCall.bind(this)
@@ -189,6 +190,7 @@ class ChatRoomListEntry extends Component {
           <div className="chatroom-header" onClick={this.minimize}>
             <div className="chatroom-header-name">{this.props.room.friend}</div>
             <img id='video-chat-button' src='./images/video-camera.png' onClick={this.handleVideoClick} />
+            
             <div onClick={this.closeCurrentRoom.bind(this)} className="chatroom-header-button">x</div>
           </div>
 
