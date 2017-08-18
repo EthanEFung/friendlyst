@@ -3,7 +3,7 @@ import EventListEntry from '../containers/EventListEntry.jsx';
 import { 
   Col,
   ListGroup,
-} from 'react-bootstrap'
+} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import getStoredEvents from '../actions/getStoredEvents';
 import axios from 'axios';
@@ -24,6 +24,16 @@ class EventsList extends Component {
       .catch(err => {
         console.log('events page could not receive events from the database', err)
       })
+  }
+
+  componentWillReceiveProps() {
+    axios.get('/api/event/getEvents')
+    .then(events => {
+      this.props.getStoredEvents(events.data)
+    })
+    .catch(err => {
+      console.log('events page could not receive events from the database', err)
+    })
   }
 
   render() {

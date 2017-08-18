@@ -7,6 +7,7 @@ import {
   DropdownButton,
   MenuItem,
 } from 'react-bootstrap';
+import axios from 'axios'
 
 const mapStateToProps = (state) => {
   return {
@@ -22,6 +23,16 @@ class EventListEntry extends Component {
 
   handleDeleteClick() {
     console.log('user wants to delete event from events table')
+    
+    let { name, date, location, description, id } = this.props
+    console.log('these are the props of the eventlistEntry user wants to delete', {name, date, location, description, id})
+    axios.delete('/api/event/deleteEvent', {data: { name, date, location, description, id } })
+      .then(event => {
+        console.log('deleted event from the database', event);
+      })
+      .catch(err => {
+        console.log('error, no response from the server deleteing event', err)
+      })
   }
 
   render() {
@@ -36,7 +47,8 @@ class EventListEntry extends Component {
           <DropdownButton
             bsStyle="default"
             bsSize="xsmall"
-            title="Edit"
+            title="Edit "
+            id={id}
           >
           <MenuItem eventKey="1" onClick={this.handleDeleteClick}>Delete</MenuItem>
          
