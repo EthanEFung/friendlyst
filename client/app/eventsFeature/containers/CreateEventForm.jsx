@@ -102,12 +102,11 @@ class CreateEventForm extends Component {
   }
   
   handleEventSubmit() {
-    // this.props.createNewEvent(this.state.event);
-    let newEvent = this.state.event
-    console.log('this is the new event sending to the server', newEvent)
-    axios.post(`/api/event/postEvent`, this.state.event )
+    let { name, date, location, description } = this.state.event;
+
+    axios.post(`/api/event/postEvent`, { name, date, location, description })
       .then((event) => {
-        console.log('received event back from the server', event)
+        this.props.createNewEvent(this.state.event);
       })
       .catch(err => {
         console.log(`error receiving event from the database ${err}`)
