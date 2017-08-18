@@ -35,10 +35,14 @@ class EventListEntry extends Component {
       })
   }
 
+  handleUpdateClick() {
+    console.log('user wants to update event from events table')
+  }
+
   render() {
     let { name, date, location, description, formattedDate, id } = this.props;
     return (
-      <ListGroupItem key={id}>
+      <ListGroupItem >
         <Row>
         <Col xs={10}>
         { `${name}   ${location}` }
@@ -50,7 +54,9 @@ class EventListEntry extends Component {
             title="Edit "
             id={id}
           >
-          <MenuItem eventKey="1" onClick={this.handleDeleteClick}>Delete</MenuItem>
+          <MenuItem eventKey="1" onClick={this.handleDeleteClick} id={id}>Delete</MenuItem>
+          <MenuItem eventKey="2" onClick={this.handleUpdateClick} id={id}>Update</MenuItem>
+
          
           </DropdownButton>
         </Col>

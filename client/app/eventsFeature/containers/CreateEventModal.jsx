@@ -6,6 +6,12 @@ import {
 } from 'react-bootstrap';
 import CreateEventForm from '../containers/CreateEventForm.jsx';
 
+const mapStateToProps = (state) => {
+	return {
+		showModal: state.eventsReducer.showModal
+	}
+}
+
 class CreateEventModal extends Component {
   constructor(props) {
     super(props);
