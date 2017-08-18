@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
+  Modal,
   Col,
   Form,
   FormGroup,
   FormControl,
   ControlLabel,
   HelpBlock, 
-  Button
+  Button,
+  ButtonGroup
 } from 'react-bootstrap';
-import DatePicker from 'react-bootstrap-date-picker'
-import createNewEvent from '../actions/createNewEvent.js'
+import DatePicker from 'react-bootstrap-date-picker';
+import createNewEvent from '../actions/createNewEvent.js';
+import axios from 'axios';
 
 const mapStateToProps = (state) => {
   return {
@@ -99,7 +102,16 @@ class CreateEventForm extends Component {
   }
   
   handleEventSubmit() {
-    this.props.createNewEvent(this.state.event);
+    // this.props.createNewEvent(this.state.event);
+    let newEvent = this.state.event
+    console.log('this is the new event sending to the server', newEvent)
+    axios.post(`/api/event/postEvent`, this.state.event )
+      .then((event) => {
+        console.log('received event back from the server', event)
+      })
+      .catch(err => {
+        console.log(`error receiving event from the database ${err}`)
+      })
   }
 
   componentDidUpdate() {
@@ -175,9 +187,16 @@ class CreateEventForm extends Component {
           <HelpBlock>Validation is based on string length</HelpBlock>
         </Col>
       </FormGroup>   
-      <Button block onClick={this.handleEventSubmit}>
-        Create Event
-      </Button>     
+    <Modal.Footer>
+      <Button bsStyle="primary" onClick={this.handleEventSubmit}>
+      Save
+      </Button>
+      {'   '}
+      <Button onClick={this.props.handleCancelClick}>
+      Cancel
+      </Button>  
+    </Modal.Footer>
+      
     </Form>
     );
   }

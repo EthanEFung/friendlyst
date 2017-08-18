@@ -33,11 +33,8 @@ class CreateEventModal extends Component {
           <Modal.Title>Create Event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CreateEventForm />
+          <CreateEventForm handleCancelClick={this.closeCreateEventModal}/>
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.closeCreateEventModal}>Close</Button>
-        </Modal.Footer>
       </Modal>
     </div>
     )
