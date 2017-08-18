@@ -207,20 +207,13 @@ class App extends Component {
 			image: this.state.imageURL
 		})
 			.then(({ data }) => {
-				console.log(`this.submitPost data is ${JSON.stringify(data)}`)
+				//console.log(`this.submitPost data is ${JSON.stringify(data)}`)
 				//this.props.newPost(data);
 				this.props.socket.emit('new post', data)
 			})
 			.catch(err => {
 				console.log(err);
 			})
-			// .then(({ data }) => {
-			// 	//this.props.newPost(data);
-			// 	this.props.socket.emit('new post', data)
-			// })
-			// .catch(err => {
-			// 	console.log(err);
-			// })
 		document.getElementById('post-area').value='';
 		this.setState({
 			previewThumbnail: ''

@@ -6,10 +6,13 @@ const FeedList = ({ posts, user, socket }) => {
     <div>
       <div>
         {posts.sort( (a,b) => {
-				a = a.updatedAt;
-				b = b.updatedAt;
-				return a > b ? -1 : a < b ? 1 : 0;
-			}).map((post, key) => <FeedListEntry post={post} key={post.id} user={user} socket={socket} />)}
+          a = a.updatedAt;
+          b = b.updatedAt;
+          return a > b ? -1 : a < b ? 1 : 0;
+        }).map((post, key) => (
+          <FeedListEntry post={post} key={post.id} user={user} socket={socket} />
+          ))
+        }
       </div>
     </div>
   )
