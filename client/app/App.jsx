@@ -301,7 +301,7 @@ class App extends Component {
 					<Dropzone
 						onDrop={this.addPostImage}
 						multiple
-						accept="image/*"
+						accept="image/*, video/*"
 						className="postImage"
 						disableClick= {true}
 					>
