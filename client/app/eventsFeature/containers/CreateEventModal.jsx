@@ -5,6 +5,8 @@ import {
   Button,
 } from 'react-bootstrap';
 import CreateEventForm from '../containers/CreateEventForm.jsx';
+import closeModal from '../actions/closeModal.js';
+import openModal from '../actions/openModal.js';
 
 const mapStateToProps = (state) => {
 	return {
@@ -15,17 +17,18 @@ const mapStateToProps = (state) => {
 class CreateEventModal extends Component {
   constructor(props) {
     super(props);
-    this.state = {showModal:false};
     this.openCreateEventModal = this.openCreateEventModal.bind(this);
     this.closeCreateEventModal = this.closeCreateEventModal.bind(this);
   }
 
   closeCreateEventModal () {
-    this.setState({showModal:false});
+    console.log('trying to close modal')
+    closeModal()
   }
 
   openCreateEventModal () {
-    this.setState({showModal:true});
+    console.log('trying to open modal', this.props)
+    openModal();
   }
 
   render() {
@@ -34,7 +37,7 @@ class CreateEventModal extends Component {
       <Button className="event-list-button btn btn-default" onClick={this.openCreateEventModal}>
         Create Event
       </Button> 
-      <Modal show={this.state.showModal} onHide={this.closeCreateEventModal}>
+      <Modal show={this.props.showModal} onHide={this.closeCreateEventModal}>
         <Modal.Header closeButton>
           <Modal.Title>Create Event</Modal.Title>
         </Modal.Header>

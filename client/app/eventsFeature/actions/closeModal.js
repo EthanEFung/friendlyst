@@ -1,8 +1,7 @@
 import React from 'react';
 
 const closeModal = (state) => ({
-  type: 'CLOSE_MODAL',
-  payload: showModal
+  type: 'CLOSE_MODAL'
 })
 
 export default closeModal;

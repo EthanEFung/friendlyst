@@ -19,6 +19,7 @@ class EventsList extends Component {
   componentDidMount() {
     axios.get('/api/event/getEvents')
       .then(events => {
+        console.log('this is the events list data', events.data)
         this.props.getStoredEvents(events.data)
       })
       .catch(err => {
