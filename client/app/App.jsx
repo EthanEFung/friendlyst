@@ -259,7 +259,6 @@ class App extends Component {
 			<div>
 				<Nav nickname={this.props.user.nickname} picture={this.props.user.profilePicture} />
 				<div className="home-page-container">
-<<<<<<< HEAD
 					<div className="post-section">
 						<div className="flexbox2">
 							<div className="flexbox-container">
@@ -296,20 +295,6 @@ class App extends Component {
 							</div>
 						</div>
 					</div>
-=======
-					<img src={this.props.user.profilePicture} id='statusPicture' />
-					<Dropzone
-						onDrop={this.addPostImage}
-						multiple
-						accept="image/*, video/*"
-						className="postImage"
-						disableClick= {true}
-					>
-						<textarea id="post-area" placeholder="What's on your mind?"></textarea>
-					</Dropzone>
-					<div className="input-button-container"><Button bsStyle="success" onClick={this.addPostImage.bind(this)}>Attach Image</Button></div>
-					<div className="input-button-container"><Button bsStyle="success" onClick={this.submitPost.bind(this)}>Post</Button></div>
->>>>>>> things work now for some reason
 					<FeedList posts={this.props.posts} user={this.props.user} socket={this.props.socket} />
 				</div>
 				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.props.socket} />
