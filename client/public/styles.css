@@ -620,3 +620,18 @@ body {
 .flexbox-container {
   display: flex;
 }
+
+.test-image {
+  display: none;
+}
+
+.limit-dropzone {
+  width:100%;
+  height:100%;
+}
+
+.post-image-upload-button {
+  position: relative;
+  width:100%;
+  height:100%;
+}
