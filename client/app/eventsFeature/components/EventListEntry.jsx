@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
+import { 
+  ListGroup,
+  ListGroupItem
+} from 'react-bootstrap';
+
 
 class EventListEntry extends Component {
   render() {
-    let { name, date, location, description } = this.props;
+    console.log(this.props)
+    let { name, date, location, description, formattedDate } = this.props;
     return (
       <div className="card ">
-        { name + date + location }
+        { `${name} ${formattedDate} ${location}` }
       </div>
     );
   }

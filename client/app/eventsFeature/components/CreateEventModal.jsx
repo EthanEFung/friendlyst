@@ -33,12 +33,13 @@ class CreateEventModal extends Component {
           <Modal.Title>Create Event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CreateEventForm handleCancelClick={this.closeCreateEventModal}/>
+          <CreateEventForm handleCloseModal={this.closeCreateEventModal}/>
         </Modal.Body>
       </Modal>
     </div>
     )
   }
 }
+// Cancel and Save Buttons are found in the CreateEventForm Modal
 
 export default CreateEventModal;

@@ -153,8 +153,8 @@ class CreateEventForm extends Component {
         </FormGroup>
 
         <FormGroup
-        controlId="eventLocation"
-        validationState={this.getValidationState()}
+          controlId="eventLocation"
+          validationState={this.getValidationState()}
         >
           <Col componentClass={ControlLabel} xs={3}>Event Location:</Col>
           <Col xs={9}>
@@ -170,8 +170,8 @@ class CreateEventForm extends Component {
       </FormGroup>
 
       <FormGroup
-      controlId="eventDescription"
-      validationState={this.getValidationState()}
+        controlId="eventDescription"
+        validationState={this.getValidationState()}
       >
         <Col componentClass={ControlLabel} xs={3}>Event Description:</Col>
         <Col xs={9}>
@@ -187,11 +187,17 @@ class CreateEventForm extends Component {
         </Col>
       </FormGroup>   
     <Modal.Footer>
-      <Button bsStyle="primary" onClick={this.handleEventSubmit}>
+      <Button 
+        bsStyle="primary" 
+        onClick={() => {
+          this.handleEventSubmit(); 
+          this.props.handleCloseModal();
+          }}
+      >
       Save
       </Button>
       {'   '}
-      <Button onClick={this.props.handleCancelClick}>
+      <Button onClick={this.props.handleCloseModal}>
       Cancel
       </Button>  
     </Modal.Footer>

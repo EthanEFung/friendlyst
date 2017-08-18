@@ -4,13 +4,6 @@ import Nav from '../../Nav.jsx';
 import EventList from '../containers/EventsList.jsx';
 import CreateEventModal from '../components/CreateEventModal.jsx';
 
-
-// const mapStateToProps = (state) => {
-// 	return {
-// 		events: state.eventsReducer.events
-// 	}
-// }
-
 class EventsPage extends Component {
 
   render() {
@@ -26,11 +19,9 @@ class EventsPage extends Component {
           <hr/>
           <EventList />
         </div>
-
       </div>
     )
   }
 }
 
-// export default connect(mapStateToProps)(EventsPage)
 export default EventsPage
