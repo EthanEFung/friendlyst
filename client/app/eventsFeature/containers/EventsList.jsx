@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import EventListEntry from '../components/EventListEntry.jsx';
+import EventListEntry from '../containers/EventListEntry.jsx';
+import { 
+  Col,
+  ListGroup,
+} from 'react-bootstrap'
 import { connect } from 'react-redux';
 import getStoredEvents from '../actions/getStoredEvents';
 import axios from 'axios';
@@ -25,7 +29,15 @@ class EventsList extends Component {
   render() {
     return (
       <div>
-        {this.props.events.map((event) => <EventListEntry key={event.id} {...event}/>)}
+        <Col xs={1}/>
+
+        <Col xs={10}>
+          <ListGroup className="event-list">
+            {this.props.events.map((event) => <EventListEntry key={event.id} {...event}/>)}
+          </ListGroup>
+        </Col>
+        
+        <Col xs={1}/>
       </div>
     );
   }

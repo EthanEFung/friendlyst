@@ -4,6 +4,7 @@ import Nav from '../../Nav.jsx';
 import EventList from '../containers/EventsList.jsx';
 import CreateEventModal from '../components/CreateEventModal.jsx';
 
+
 class EventsPage extends Component {
 
   render() {
@@ -16,7 +17,7 @@ class EventsPage extends Component {
           <h1 className="display-3">Events</h1>
           <p className="lead">Attend an event near you</p>
           <CreateEventModal />
-          <hr/>
+          <hr/> 
           <EventList />
         </div>
       </div>

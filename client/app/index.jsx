@@ -35,6 +35,7 @@ const reducers = combineReducers({
    socketReducer,
    eventsReducer
 })
+//events reducer and eventsPage is found in the eventsFeature repo
 
 const store = createStore(reducers)
 
