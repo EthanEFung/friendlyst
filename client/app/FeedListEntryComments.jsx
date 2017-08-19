@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FeedListEntryLikes from './FeedListEntryLikes.jsx';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
+import $ from 'jquery';
 
 class FeedListEntryComments extends Component {
 	constructor(props) {
@@ -25,8 +26,9 @@ class FeedListEntryComments extends Component {
 	}
 	componentDidUpdate() {
 		$('input').focus(function(){
-			focusElement = this;
-			console.log(focusElement);
+			focusElement = $(this);
+			// focusElement.val('asdf');
+			// focusElement.trigger($.Event('keydown', {keycode: 32}));
 		})
 	}
 	componentDidMount() {
@@ -84,10 +86,14 @@ class FeedListEntryComments extends Component {
 		//should send comment request to server
 		let email = this.props.user.email;
 		let ID = this.props.comment.id;
+		let message = (this.state.commentText === '' && focusElement) ? focusElement.val() : this.state.commentText;
+		if(message === ''){
+			return;
+		}
 		axios.post('api/usercomment/postSubComment', {
 			email: email,
 			parentId: ID,
-			message: this.state.subcommentText
+			message: message
 		})
 		.then(data => {
 			console.log('SUCCESSFULLY POSTED SUBCOMMENT TO DATABASE :::: ', data);
@@ -125,9 +131,11 @@ class FeedListEntryComments extends Component {
 		}
 		return Math.floor(seconds) + " seconds";
 	}
-	handleSubCommentInput(input) {
-		let text = input.target.value;
-		this.setState({ subcommentText: text });
+	handleSubCommentInput(event) {
+		let text = event.target.value;
+		this.setState({ subcommentText: text }, () => {
+			console.log('this sis the state of ', this.state.subcommentText)
+		});
 	}
 	render() {
 		return (
