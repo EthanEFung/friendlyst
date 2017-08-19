@@ -11,10 +11,12 @@ import closeModal from '../actions/closeModal.js';
 import openModal  from '../actions/openModal.js';
 import updateEventModal from '../actions/updateEventModal.js';
 import updateEntry from '../actions/updateEntry.js';
+import deleteEvent from '../actions/deleteEvent.js';
 import axios from 'axios'
 
 const mapStateToProps = (state) => {
   return {
+    events: state.eventsReducer.events,
     event: state.eventsReducer.event,
     showModal: state.createEventModalReducer.showModal,
     isUpdatingEntry: state.updateEntryReducer.isUpdatingEntry
@@ -52,7 +54,7 @@ class EventListEntry extends Component {
     console.log('these are the props of the eventlistEntry user wants to delete', {name, date, location, description, id})
     axios.delete('/api/event/deleteEvent', {data: { name, date, location, description, id } })
       .then(event => {
-        console.log('deleted event from the database', event);
+        this.props.deleteEvent({name, date, location, description, id})
       })
       .catch(err => {
         console.log('error, no response from the server deleteing event', err)
@@ -92,4 +94,4 @@ class EventListEntry extends Component {
   }
 }
 
-export default connect(mapStateToProps, { closeModal, openModal, updateEventModal, updateEntry })(EventListEntry)
+export default connect(mapStateToProps, { closeModal, openModal, updateEventModal, updateEntry, deleteEvent })(EventListEntry)

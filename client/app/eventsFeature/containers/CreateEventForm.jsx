@@ -20,6 +20,7 @@ import axios from 'axios';
 
 const mapStateToProps = (state) => {
   return {
+    events: state.eventsReducer.events,
     prevEvent: state.updateEventModalReducer.prevEvent,
     isUpdatingEntry: state.updateEntryReducer.isUpdatingEntry
   }
@@ -122,8 +123,9 @@ class CreateEventForm extends Component {
       axios.get(`/api/event/getEvent`, { params: id })
         .then(event => {
           axios.put(`/api/event/updateEvent`, { name, date, location, description, id })
-          .then(() => {
-            this.props.createNewEvent(this.state.event);
+          .then((response) => {
+            console.log('this is the response of axios request put', response)
+            this.props.updateEvents({name, date, location, description, id });
           })
           .catch(err => {
             console.log('error creating updated event after receiving from db', err)
@@ -136,7 +138,8 @@ class CreateEventForm extends Component {
       console.log('the entry is was an update for a new event post', this.props.isUpdatingEntry)
       axios.post(`/api/event/postEvent`, { name, date, location, description })
         .then((event) => {
-          this.props.updateEvents(this.state.event);
+          console.log(`event was posted ${event.data}`)
+          this.props.createNewEvent(this.state.event);
         })
         .catch(err => {
           console.log(`error receiving event from the database ${err}`)
