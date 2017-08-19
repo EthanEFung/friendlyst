@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import ProfileFeedListEntry from './ProfileFeedListEntry.jsx';
 import FeedListEntry from './FeedListEntry.jsx';
 import axios from 'axios';
-import { Button } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import Dropzone from 'react-dropzone'
+import PhotoAlbumList from './PhotoAlbumList.jsx'
 
 const mapStateToProps = (state) => {
   return {
@@ -30,6 +31,11 @@ class Profile extends Component {
     super(props);
     this.changePicture = this.changePicture.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
+    this.handleProfileView = this.handleProfileView.bind(this);
+
+    this.state = {
+      view: 'posts'
+    }
   }
 
   changePicture() {
@@ -74,7 +80,15 @@ class Profile extends Component {
 		axios.all(uploaders).then( () => {
 			console.log('image upload complete!!')
 		})
-	}
+  }
+  
+  handleProfileView(viewtype) {
+    if (viewtype === 'posts') {
+      this.setState({ view: 'posts' }, () => console.log(`this.handleProfileView viewtype==='posts'`))
+    } else if (viewtype === 'albums') {
+      this.setState({ view: 'albums' }, () => console.log(`this.handleProfileView viewtype==='albums'`))
+    }
+  }
 
   render() {
     return (
@@ -101,14 +115,26 @@ class Profile extends Component {
           <div>Username: {this.props.user.nickname}</div>
           <div>Email: {this.props.user.email}</div>
         </div>
+
+        <div className="profile-nav text-center">
+          <ButtonGroup className="profile-button-group">  
+            <Button bsStyle="success" onClick={this.handleProfileView.bind(this, 'posts')}>Posts</Button>{' '}
+            <Button bsStyle="success" onClick={this.handleProfileView.bind(this, 'albums')}>Albums</Button>
+          </ButtonGroup>
+        </div>
          <div>
-           {
-             this.props.posts
-              .filter(post => post.userId === this.props.user.id)
-              .sort((a, b) => b.id - a.id)
-              .map(post => {
-                return <FeedListEntry key={post.id} post={post} user={this.props.user}/>
-              })
+           { this.state.view === 'posts' ? 
+              (this.props.posts
+                .filter(post => post.userId === this.props.user.id)
+                .sort((a, b) => b.id - a.id)
+                .map(post => {
+                  return <FeedListEntry key={post.id} post={post} user={this.props.user}/>
+              }))
+              :
+              (<div>
+                <PhotoAlbumList />
+              </div>
+              )
            }
         </div> 
       </div>
