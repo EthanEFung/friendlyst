@@ -78,24 +78,23 @@ class EventListEntry extends Component {
     return (
       <ListGroupItem >
         <Row>
-          <Col xs={2}>
+          <Col xs={2} >
             <Row className="event-entry-date">
               <p><b>{month}{eventDate.getDate()}</b></p>
               <h4>{day}</h4>
             </Row>
-            <Col xs={8}>
           </Col>
 
-            <Col xs={10}>
-              <Row className="event-entry-info">
-                <h3>{name}</h3>
-                <p><b>loc:</b> {location}</p>
-                <p><b>desc:</b> {description}</p>
-              </Row>
-            </Col>
+          <Col xs={8} >
+            <Row className="event-entry-info">
+              <h3>{name}</h3>
+              <p><b>loc:</b> {location}</p>
+              <p><b>desc:</b> {description}</p>
+            </Row>
           </Col>
+          
 
-          <Col xs={2}>
+          <Col xs={2} >
             <DropdownButton
               bsStyle="default"
               bsSize="xsmall"
@@ -104,7 +103,6 @@ class EventListEntry extends Component {
             >
             <MenuItem eventKey="1" onClick={this.handleDeleteClick} id={id}>Delete</MenuItem>
             <MenuItem eventKey="2" onClick={this.handleUpdateClick} id={id}>Update</MenuItem>
-          
             </DropdownButton>
           </Col>
 
