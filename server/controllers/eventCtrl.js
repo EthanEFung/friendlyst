@@ -44,9 +44,12 @@ module.exports = {
   updateEvent: ((req, res) => {
     console.log('received request to update event', req.body)
     let { name, date, location, description, id } = req.body
-    Event.update({ name, date, location, description }, {where: {id}})
+    Event.update({ name, date, location, description }, {where: {id: id}})
       .then(event => {
         res.status(200).send(`${event[0]} row(s) were updated`);
+      })
+      .catch(err => {
+        res.status(500).send(`error updating event in the db`);
       })
   })
 }

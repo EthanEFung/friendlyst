@@ -14,11 +14,13 @@ import {
 import DatePicker from 'react-bootstrap-date-picker';
 import createNewEvent from '../actions/createNewEvent.js';
 import updateEventModal from '../actions/updateEventModal.js';
-import updateEntry from '../actions/updateEntry.js'
+import updateEntry from '../actions/updateEntry.js';
+import updateEvents from '../actions/updateEvents.js';
 import axios from 'axios';
 
 const mapStateToProps = (state) => {
   return {
+    events: state.eventsReducer.events,
     prevEvent: state.updateEventModalReducer.prevEvent,
     isUpdatingEntry: state.updateEntryReducer.isUpdatingEntry
   }
@@ -46,7 +48,9 @@ class CreateEventForm extends Component {
   }
   
   componentDidMount() {
-    this.setState({event: this.props.prevEvent});
+    if (this.props.isUpdatingEntry) {
+      this.setState({event: this.props.prevEvent});
+    }
   }
 
   getValidationState() {
@@ -115,38 +119,34 @@ class CreateEventForm extends Component {
     // console.log('this is the current')
     // console.log(id, 'this is the id of the prevEvent')
     console.log('the entry is was an update', this.props.isUpdatingEntry)
-    this.props.updateEntry(false)
     
-    // if (this.props.isUpdatingEntry) {
-    //   axios.get(`/api/event/getEvent`, { params: id })
-    //     .then(event => {
-    //       axios.put(`/api/event/updateEvent`, { name, date, location, description, id })
-    //       .then(() => {
-    //         this.props.createNewEvent(this.state.event);
-    //       })
-    //       .then(() => this.props.updateEntry(false))
-    //       .catch(err => {
-    //         console.log('error creating updated event', err)
-    //         this.props.updateEntry(false);
-    //       })
-    //     })
-    //     .catch(err => {
-    //       console.log(err)
-    //       this.props.updateEntry(false);
-    //     })
-    // } else {
-    //   axios.post(`/api/event/postEvent`, { name, date, location, description })
-    //     .then((event) => {
-    //       this.props.createNewEvent(this.state.event);
-    //     })
-    //     .then(() => {
-    //       this.props.updateEntry(false);
-    //     })
-    //     .catch(err => {
-    //       console.log(`error receiving event from the database ${err}`)
-    //       this.props.updateEntry(false);
-    //     })
-    // }
+    if (this.props.isUpdatingEntry) {
+      this.props.updateEntry(false)
+      axios.get(`/api/event/getEvent`, { params: id })
+        .then(event => {
+          axios.put(`/api/event/updateEvent`, { name, date, location, description, id })
+          .then((response) => {
+            console.log('this is the response of axios request put', response)
+            this.props.updateEvents({name, date, location, description, id });
+          })
+          .catch(err => {
+            console.log('error creating updated event after receiving from db', err)
+          })
+        })
+        .catch(err => {
+          console.log('error getting event to update',err)
+        })
+    } else {
+      console.log('the entry is was an update for a new event post', this.props.isUpdatingEntry)
+      axios.post(`/api/event/postEvent`, { name, date, location, description })
+        .then((event) => {
+          console.log(`event was posted ${event.data}`)
+          this.props.createNewEvent(this.state.event);
+        })
+        .catch(err => {
+          console.log(`error receiving event from the database ${err}`)
+        })
+    }
   }
 
   // componentDidReceiveProps() {
@@ -252,4 +252,4 @@ class CreateEventForm extends Component {
     );
   }
 }
-export default connect(mapStateToProps, { createNewEvent, updateEventModal, updateEntry })(CreateEventForm);
+export default connect(mapStateToProps, { createNewEvent, updateEventModal, updateEntry, updateEvents })(CreateEventForm);
