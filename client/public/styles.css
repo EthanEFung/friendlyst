@@ -665,3 +665,26 @@ body {
 .custom-modal {
   width: 90%;
 }
+
+.profile-nav {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.photo-album {
+  width: 150px;
+  height: 150px;
+  margin: 1rem;
+  cursor: pointer;
+}
+
+.photo-album-section {
+  margin: auto;
+}
+
+.photo-album-photo {
+  width: 150px;
+  height: 150px;
+  margin: 1rem;
+  cursor: pointer;
+}
