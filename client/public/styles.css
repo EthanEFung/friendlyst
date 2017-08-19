@@ -655,6 +655,15 @@ body {
 .event-list {
   background-color:rgba(255, 255, 255, 0.88);
 }
+
+.event-entry-info {
+  text-align: left;
+}
+
+.event-entry-date {
+  align-items: center;
+}
+
 #upload-photo-button {
   height: 15px;
   width: auto;

@@ -178,7 +178,7 @@ class CreateEventForm extends Component {
               onChange={this.handleNameChange}
             />
             <FormControl.Feedback />
-            <HelpBlock>Validation is based on string length</HelpBlock>
+            <HelpBlock>Give your event a BANGIN name</HelpBlock>
           </Col>
         </FormGroup>
 
@@ -190,7 +190,7 @@ class CreateEventForm extends Component {
               value={this.state.event.date}
               onChange={this.handleDateChange}
             />  
-            <HelpBlock>Validation is based on string length</HelpBlock>
+            <HelpBlock>When is your event?</HelpBlock>
           </Col>
         </FormGroup>
 
@@ -207,7 +207,7 @@ class CreateEventForm extends Component {
               onChange={this.handleLocationChange}
             />
             <FormControl.Feedback />
-            <HelpBlock>Validation is based on string length</HelpBlock>
+            <HelpBlock>What lit AF place are you having the event?</HelpBlock>
           </Col>
       </FormGroup>
 
@@ -225,7 +225,7 @@ class CreateEventForm extends Component {
             onChange={this.handleDescriptionChange}
           />
           <FormControl.Feedback />
-          <HelpBlock>Validation is based on string length</HelpBlock>
+          <HelpBlock>Get people hype</HelpBlock>
         </Col>
       </FormGroup>   
     <Modal.Footer>
