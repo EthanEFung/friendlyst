@@ -133,10 +133,10 @@ class App extends Component {
 			window.onload = function(){
 				var commands = {
 					'type *text': this.setText,
-					'no': function(){console.log('hello')}
+					'hello': function(){console.log('hello')}
 				};
 				annyang.debug();
-				annyang.init(commands, true);
+				annyang.addCommands(commands);
 				annyang.addCallback('errorNetwork', ()=>{
 					console.log('error')
 				})
