@@ -4,9 +4,9 @@ const envPath = path.resolve(__dirname, './../../.env')
 console.log(envPath, 'this is the path')
 console.log(typeof envPath)
 
-require('dotenv').config({
-  path: envPath
-});
+// require('dotenv').config({
+//   path: envPath
+// });
 
 const db = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
