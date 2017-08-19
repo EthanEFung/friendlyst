@@ -49,14 +49,27 @@ class PhotoAlbumList extends Component {
   render() {
     console.log
     return (
-      <div className="photo-album-section">
-        { this.state.albumClicked ? 
-          (<div><PhotoAlbum album={this.state.album} /></div>)
-        :
-          (this.state.albums.map( (album, i) => {
-            return (<div className="photo-album-area"><div className="photo-album-title">{album.name}<img src={album.photos[0].secure_url} className="photo-album" onClick={this.handlePhotoAlbumOnClick.bind(this, album)}/></div></div>)
-          }))
-        }
+      <div className='container'>
+        <div className='row'>
+          <div className="photo-album-section">
+            { this.state.albumClicked ? 
+              (<div><PhotoAlbum album={this.state.album} /></div>)
+            :
+              (this.state.albums.map( (album, i) => {
+                return (
+                  <div className='col-sm-4'>
+                    <div className="photo-album-area">
+                      <img src={album.photos[0].secure_url} className="photo-album photo-center img-responsive" onClick={this.handlePhotoAlbumOnClick.bind(this, album)}/>
+                      <div className="photo-album-title text-right">
+                        <div className='album-text'>{album.name}</div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              }))
+            }
+          </div>
+        </div>
       </div>
     )
   }

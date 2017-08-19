@@ -24,7 +24,7 @@ export default class Photo extends Component {
   render() {
     return (
       <span>
-        <img src={this.props.image.secure_url} className="photo-album-photo" onClick={this.openPhotoModal}/>
+        <img src={this.props.image.secure_url} className="photo-album-photo photo-center" onClick={this.openPhotoModal}/>
           <Modal show={this.state.showModal} onHide={this.closePhotoModal} className="photo-modal">
           <Modal.Body>
             <img className="enlarged-post-image" src={this.props.image.secure_url}/>

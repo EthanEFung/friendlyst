@@ -96,6 +96,7 @@ class App extends Component {
 		}
 		this.closeGameModal = this.closeGameModal.bind(this)
 		this.openGameModal = this.openGameModal.bind(this)
+		this.setText = this.setText.bind(this)
 	}
 
 	componentWillMount() {
@@ -129,10 +130,11 @@ class App extends Component {
 		this.props.posts.sort((a, b) => b.id - a.id);
 	}
 	componentDidMount() {
+		var appComponent = this
 		if(annyang){
 			window.onload = function(){
 				var commands = {
-					'type *text': this.setText,
+					'type *text': appComponent.setText,
 					'hello': function(){console.log('hello')}
 				};
 				annyang.debug();
@@ -176,7 +178,7 @@ class App extends Component {
 		})
 	}
 	setText(text){
-		console.log('setting text')
+		console.log('setting text ::: ', text)
 		focusElement.value = text;
 	}
 	manageChat(nickname) {

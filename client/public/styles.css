@@ -672,21 +672,41 @@ body {
 }
 
 .photo-album {
-  width: 150px;
-  height: 150px;
-  margin: 1rem;
+  width: 250px;
+  height: 250px;
   cursor: pointer;
+  box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 1);
+}
+
+.photo-album-area:hover {
+  transform: scale(1.1) translate3d(0px, 0px, 0px);
 }
 
 .photo-album-section {
   margin: auto;
 }
 
+.photo-album-area {
+  transition: all .2s ease-in-out;
+}
+
+.photo-album-title {
+  margin-top: -65px;
+  font-size: 40px;
+  color: white;
+  letter-spacing: 1px;
+  margin-right: 70px;
+}
+
 .photo-album-photo {
-  width: 150px;
-  height: 150px;
-  margin: 1rem;
+  width: 187px;
+  height: 187px;
   cursor: pointer;
+}
+
+.photo-center {
+  margin: 1rem auto 1rem auto;
+  display: block;
 }
 
 .photo-album-dropzone {
