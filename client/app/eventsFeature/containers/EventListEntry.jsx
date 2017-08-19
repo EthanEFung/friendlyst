@@ -9,13 +9,15 @@ import {
 } from 'react-bootstrap';
 import closeModal from '../actions/closeModal.js';
 import openModal  from '../actions/openModal.js';
-import updateEventModal from '../actions/updateEventModal.js'
+import updateEventModal from '../actions/updateEventModal.js';
+import updateEntry from '../actions/updateEntry.js';
 import axios from 'axios'
 
 const mapStateToProps = (state) => {
   return {
     event: state.eventsReducer.event,
-    showModal: state.createEventModalReducer.showModal
+    showModal: state.createEventModalReducer.showModal,
+    isUpdatingEntry: state.updateEntryReducer.isUpdatingEntry
   }
 }
 
@@ -59,7 +61,7 @@ class EventListEntry extends Component {
 
   handleUpdateClick() {
     console.log('user wants to update event from events table')
-    
+    this.props.updateEntry(true);
     this.props.openModal(true);
     this.props.updateEventModal(this.state);
   }
@@ -90,4 +92,4 @@ class EventListEntry extends Component {
   }
 }
 
-export default connect(mapStateToProps, { closeModal, openModal, updateEventModal })(EventListEntry)
+export default connect(mapStateToProps, { closeModal, openModal, updateEventModal, updateEntry })(EventListEntry)

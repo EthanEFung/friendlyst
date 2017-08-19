@@ -14,11 +14,13 @@ import {
 import DatePicker from 'react-bootstrap-date-picker';
 import createNewEvent from '../actions/createNewEvent.js';
 import updateEventModal from '../actions/updateEventModal.js';
+import updateEntry from '../actions/updateEntry.js'
 import axios from 'axios';
 
 const mapStateToProps = (state) => {
   return {
-    prevEvent: state.updateEventModalReducer.prevEvent
+    prevEvent: state.updateEventModalReducer.prevEvent,
+    isUpdatingEntry: state.updateEntryReducer.isUpdatingEntry
   }
 }
 
@@ -108,34 +110,43 @@ class CreateEventForm extends Component {
   
   handleEventSubmit() {
     let { name, date, location, description } = this.state.event;
-    
     let { id } = this.props.prevEvent;
-    console.log('this is the prevEvent name', this.props.prevEvent.name)
-    console.log('this is the current')
-    console.log(id, 'this is the id of the prevEvent')
-
-    if(id) {
-      
-    }
-
-    axios.get(`/api/event/getEvent`, { params: id })
-      .then(event => {
-        console.log(event.data[0])
-        axios.put(`/api/event/updateEvent`, { name, date, location, description, id })
-        .then(event => {
-          console.log(event)
-        })
-        .catch(err => console.log(err))
-      })
-      .catch(err => console.log(err))
-
-    // axios.post(`/api/event/postEvent`, { name, date, location, description })
-    //   .then((event) => {
-    //     this.props.createNewEvent(this.state.event);
-    //   })
-    //   .catch(err => {
-    //     console.log(`error receiving event from the database ${err}`)
-    //   })
+    // console.log('this is the prevEvent name', this.props.prevEvent.name)
+    // console.log('this is the current')
+    // console.log(id, 'this is the id of the prevEvent')
+    console.log('the entry is was an update', this.props.isUpdatingEntry)
+    this.props.updateEntry(false)
+    
+    // if (this.props.isUpdatingEntry) {
+    //   axios.get(`/api/event/getEvent`, { params: id })
+    //     .then(event => {
+    //       axios.put(`/api/event/updateEvent`, { name, date, location, description, id })
+    //       .then(() => {
+    //         this.props.createNewEvent(this.state.event);
+    //       })
+    //       .then(() => this.props.updateEntry(false))
+    //       .catch(err => {
+    //         console.log('error creating updated event', err)
+    //         this.props.updateEntry(false);
+    //       })
+    //     })
+    //     .catch(err => {
+    //       console.log(err)
+    //       this.props.updateEntry(false);
+    //     })
+    // } else {
+    //   axios.post(`/api/event/postEvent`, { name, date, location, description })
+    //     .then((event) => {
+    //       this.props.createNewEvent(this.state.event);
+    //     })
+    //     .then(() => {
+    //       this.props.updateEntry(false);
+    //     })
+    //     .catch(err => {
+    //       console.log(`error receiving event from the database ${err}`)
+    //       this.props.updateEntry(false);
+    //     })
+    // }
   }
 
   // componentDidReceiveProps() {
@@ -228,7 +239,11 @@ class CreateEventForm extends Component {
       Save
       </Button>
       {'   '}
-      <Button onClick={this.props.handleCloseModal}>
+      <Button onClick={() => {
+        this.props.handleCloseModal();
+        this.props.updateEntry(false);
+      }}
+      >
       Cancel
       </Button>  
     </Modal.Footer>
@@ -237,4 +252,4 @@ class CreateEventForm extends Component {
     );
   }
 }
-export default connect(mapStateToProps, { createNewEvent, updateEventModal })(CreateEventForm);
+export default connect(mapStateToProps, { createNewEvent, updateEventModal, updateEntry })(CreateEventForm);

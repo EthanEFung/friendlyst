@@ -24,6 +24,7 @@ import socketReducer from './reducer/socketReducer.js'
 import eventsReducer from './eventsFeature/reducers/eventsReducer.js'
 import createEventModalReducer from './eventsFeature/reducers/createEventModalReducer.js'
 import updateEventModalReducer from './eventsFeature/reducers/updateEventModalReducer.js'
+import updateEntryReducer from './eventsFeature/reducers/updateEntryReducer.js'
 import $ from 'jquery';
 
 const reducers = combineReducers({
@@ -38,6 +39,7 @@ const reducers = combineReducers({
    eventsReducer,
    createEventModalReducer,
    updateEventModalReducer,
+   updateEntryReducer,
 })
 //events reducer and eventsPage is found in the eventsFeature repo
 
