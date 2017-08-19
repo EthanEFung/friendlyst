@@ -18,7 +18,6 @@ import axios from 'axios';
 
 const mapStateToProps = (state) => {
   return {
-    event: state.eventsReducer.event,
     prevEvent: state.updateEventModalReducer.prevEvent
   }
 }
@@ -44,11 +43,8 @@ class CreateEventForm extends Component {
     this.handleEventSubmit = this.handleEventSubmit.bind(this);
   }
   
-
   componentDidMount() {
-    console.log('this is the event form', this.props.prevEvent)
-    this.setState({event: this.props.prevEvent });
-    
+    this.setState({event: this.props.prevEvent});
   }
 
   getValidationState() {
@@ -113,20 +109,33 @@ class CreateEventForm extends Component {
   handleEventSubmit() {
     let { name, date, location, description } = this.state.event;
     
-    console.log(this.props, 'this is the props of the form of the event')
-    
-    // axios.get(`/api/event/getEvent`, { id })
-    //   .then(event => {
-    //     console.log(event);
-    //   })
+    let { id } = this.props.prevEvent;
+    console.log('this is the prevEvent name', this.props.prevEvent.name)
+    console.log('this is the current')
+    console.log(id, 'this is the id of the prevEvent')
 
-    axios.post(`/api/event/postEvent`, { name, date, location, description })
-      .then((event) => {
-        this.props.createNewEvent(this.state.event);
+    if(id) {
+      
+    }
+
+    axios.get(`/api/event/getEvent`, { params: id })
+      .then(event => {
+        console.log(event.data[0])
+        axios.put(`/api/event/updateEvent`, { name, date, location, description, id })
+        .then(event => {
+          console.log(event)
+        })
+        .catch(err => console.log(err))
       })
-      .catch(err => {
-        console.log(`error receiving event from the database ${err}`)
-      })
+      .catch(err => console.log(err))
+
+    // axios.post(`/api/event/postEvent`, { name, date, location, description })
+    //   .then((event) => {
+    //     this.props.createNewEvent(this.state.event);
+    //   })
+    //   .catch(err => {
+    //     console.log(`error receiving event from the database ${err}`)
+    //   })
   }
 
   // componentDidReceiveProps() {

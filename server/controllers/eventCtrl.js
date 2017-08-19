@@ -7,12 +7,13 @@ module.exports = {
       .catch(err => res.status(500).send(`Error finding events! ${err}`))
   }),
   getEvent: ((req, res) => {
+    console.log(req.query[0], 'this is the request')
     Event.findAll({
       where:{
-        id: req.body.id
+        id: req.query[0]
       }
     })
-      .then(event => res.status(200).send(events))
+      .then(event => res.status(200).send(event))
       .catch(err => res.status(500).send(`Error finding events! ${err}`))
   }),
   postEvent: ((req, res) => {
@@ -42,9 +43,10 @@ module.exports = {
   }),
   updateEvent: ((req, res) => {
     console.log('received request to update event', req.body)
-    // Event.find({where: req.body.id})
-    //   .then(event => {
-
-    //   })
+    let { name, date, location, description, id } = req.body
+    Event.update({ name, date, location, description }, {where: {id}})
+      .then(event => {
+        res.status(200).send(`${event[0]} row(s) were updated`);
+      })
   })
 }

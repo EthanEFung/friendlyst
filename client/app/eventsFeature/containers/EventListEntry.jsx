@@ -61,10 +61,7 @@ class EventListEntry extends Component {
     console.log('user wants to update event from events table')
     
     this.props.openModal(true);
-    console.log(`this is the state event`, this.state);
     this.props.updateEventModal(this.state);
-
-    // axios.put('/api/event/updateEvent', {this.state.event})
   }
 
   render() {
