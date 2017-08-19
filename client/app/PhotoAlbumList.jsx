@@ -59,7 +59,7 @@ class PhotoAlbumList extends Component {
                 return (
                   <div className='col-sm-4'>
                     <div className="photo-album-area">
-                      <img src={album.photos[0].secure_url} className="photo-album center-block img-responsive" onClick={this.handlePhotoAlbumOnClick.bind(this, album)}/>
+                      <img src={album.photos[0].secure_url} className="photo-album photo-center img-responsive" onClick={this.handlePhotoAlbumOnClick.bind(this, album)}/>
                       <div className="photo-album-title text-right">
                         <div className='album-text'>{album.name}</div>
                       </div>

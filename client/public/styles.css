@@ -674,11 +674,8 @@ body {
 .photo-album {
   width: 250px;
   height: 250px;
-  margin: 1rem auto 1rem auto;
   cursor: pointer;
   box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 1);
-  display: block;
-  
 }
 
 .photo-album-area:hover {
@@ -702,10 +699,14 @@ body {
 }
 
 .photo-album-photo {
-  width: 150px;
-  height: 150px;
-  margin: 1rem;
+  width: 187px;
+  height: 187px;
   cursor: pointer;
+}
+
+.photo-center {
+  margin: 1rem auto 1rem auto;
+  display: block;
 }
 
 .photo-album-dropzone {

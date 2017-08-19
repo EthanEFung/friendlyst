@@ -46,19 +46,27 @@ export default class PhotoAlbum extends Component {
 
   render() {
     return (
-      <div className="photo-album-entire-section">
+      <div className='container'>
+        <div className="photo-album-entire-section">
 
-          <Dropzone
-						onDrop={this.handleDrop}
-						multiple
-						accept="image/*"
-            className = "photo-album-dropzone"
-					>
-          <span className="hover-profile-image">
-            <span className="hover-image-text">Update Profile Picture</span>
-          </span>
-					</Dropzone>
-        {this.state.album.map( (image, i) => (<Photo image={image} key={i}/>))}
+            <Dropzone
+              onDrop={this.handleDrop}
+              multiple
+              accept="image/*"
+              className = "photo-album-dropzone"
+            >
+            <span className="hover-profile-image">
+              <span className="hover-image-text">Update Profile Picture</span>
+            </span>
+            </Dropzone>
+          <div className='row'>
+            {this.state.album.map( (image, i) => (
+              <div className='col-sm-2'>
+                <Photo image={image} key={i}/>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     )
   }
