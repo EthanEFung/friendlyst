@@ -128,8 +128,25 @@ class App extends Component {
 
 		this.props.posts.sort((a, b) => b.id - a.id);
 	}
-
 	componentDidMount() {
+		if(annyang){
+			window.onload = function(){
+				var commands = {
+					// 'type *text': this.setText,
+					'no': function(){console.log('hello')}
+				};
+				annyang.debug();
+				annyang.addCommands(commands);
+				annyang.start();
+			}
+		}
+
+		$('textarea').focus(function(){
+			focusElement = this;
+			console.log(focusElement);
+		});
+		$('#post-area').focus();
+
 		this.socket = io('/')
 		//console.log('THIS IS THE SOCKET PROP ::: ', this.props.socket)
 		this.socket.on('update posts', (message) => {
@@ -151,7 +168,10 @@ class App extends Component {
 			})
 		})
 	}
-
+	setText(text){
+		console.log('setting text')
+		focusElement.value = text;
+	}
 	manageChat(nickname) {
 	
 		axios.get('/api/user/getUserFriend', {

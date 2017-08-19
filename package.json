@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Kiwilicious/friendlyst#readme",
   "dependencies": {
+    "annyang": "^2.6.0",
     "auth0-js": "^8.8.0",
     "axios": "^0.16.2",
     "babel-core": "^6.25.0",
