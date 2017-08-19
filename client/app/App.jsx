@@ -139,9 +139,9 @@ class App extends Component {
 				};
 				annyang.debug();
 				annyang.addCommands(commands);
-				annyang.addCallback('errorNetwork', ()=>{
-					console.log('error')
-				})
+				// annyang.addCallback('errorNetwork', ()=>{
+				// 	console.log('error')
+				// })
 				annyang.addCallback('result', (phrases)=>{
 					console.log('i think you said: ', phrases[0]);
 					console.log('but u also mighta said: ', phrases);
@@ -151,7 +151,7 @@ class App extends Component {
 		}
 
 		$('textarea').focus(function(){
-			focusElement = this;
+			focusElement = $(this);
 			console.log(focusElement);
 		});
 		$('#post-area').focus();
@@ -179,8 +179,8 @@ class App extends Component {
 	}
 	setText(text){
 		console.log('setting text ::: ', text)
-		focusElement.value = text;
-		focusElement.trigger('change');
+		focusElement.val(text);
+		// focusElement.trigger($.Event('keydown', {keycode: 32}));
 	}
 	manageChat(nickname) {
 	

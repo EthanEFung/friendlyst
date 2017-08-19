@@ -105,11 +105,14 @@ class FeedListEntry extends Component {
 		//should send comment request to server
 		let email = this.props.user.email;
 		let ID = this.props.post.id;
-		//console.log(email, ID, this.state.commentText)
+		let message = (this.state.commentText === '' && focusElement) ? focusElement.val() : this.state.commentText;
+		if( message === ''){
+			return;
+		}
 		axios.post('api/usercomment/postComment', {
 			email: email,
 			postId: ID,
-			message: this.state.commentText
+			message: message
 		})
 		.then(data => {
 			//console.log(data);
