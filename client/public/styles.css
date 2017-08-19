@@ -710,5 +710,22 @@ body {
 }
 
 .photo-album-dropzone {
-  
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.new-album-name {
+  margin-top: 5px;
+  margin-left: 7px;
+  width: 72vh;
+}
+
+.modal-body {
+  height: 85vh;
+}
+
+.photo-preview-photo img {
+  height: 10vh;
+  margin: 3px;
 }

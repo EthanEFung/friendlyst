@@ -5,6 +5,7 @@ import Photo from './Photo.jsx'
 import Dropzone from 'react-dropzone'
 
 
+
 export default class PhotoAlbum extends Component {
   constructor(props) {
     super(props)
