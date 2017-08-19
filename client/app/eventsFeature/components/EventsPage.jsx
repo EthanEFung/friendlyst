@@ -2,14 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Nav from '../../Nav.jsx';
 import EventList from '../containers/EventsList.jsx';
-import CreateEventModal from '../components/CreateEventModal.jsx';
+import CreateEventModal from '../containers/CreateEventModal.jsx';
 
-
-// const mapStateToProps = (state) => {
-// 	return {
-// 		events: state.eventsReducer.events
-// 	}
-// }
 
 class EventsPage extends Component {
 
@@ -23,14 +17,12 @@ class EventsPage extends Component {
           <h1 className="display-3">Events</h1>
           <p className="lead">Attend an event near you</p>
           <CreateEventModal />
-          <hr/>
+          <hr/> 
           <EventList />
         </div>
-
       </div>
     )
   }
 }
 
-// export default connect(mapStateToProps)(EventsPage)
 export default EventsPage

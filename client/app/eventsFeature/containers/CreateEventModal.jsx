@@ -5,21 +5,28 @@ import {
   Button,
 } from 'react-bootstrap';
 import CreateEventForm from '../containers/CreateEventForm.jsx';
+import closeModal from '../actions/closeModal.js';
+import openModal from '../actions/openModal.js';
+
+const mapStateToProps = (state) => {
+	return {
+    showModal: state.createEventModalReducer.showModal
+	}
+}
 
 class CreateEventModal extends Component {
   constructor(props) {
     super(props);
-    this.state = {showModal:false};
     this.openCreateEventModal = this.openCreateEventModal.bind(this);
     this.closeCreateEventModal = this.closeCreateEventModal.bind(this);
   }
 
-  closeCreateEventModal () {
-    this.setState({showModal:false});
+  closeCreateEventModal() {
+    this.props.closeModal(false);
   }
 
-  openCreateEventModal () {
-    this.setState({showModal:true});
+  openCreateEventModal() {
+    this.props.openModal(true);
   }
 
   render() {
@@ -28,17 +35,18 @@ class CreateEventModal extends Component {
       <Button className="event-list-button btn btn-default" onClick={this.openCreateEventModal}>
         Create Event
       </Button> 
-      <Modal show={this.state.showModal} onHide={this.closeCreateEventModal}>
+      <Modal show={this.props.showModal} onHide={this.closeCreateEventModal}>
         <Modal.Header closeButton>
           <Modal.Title>Create Event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CreateEventForm handleCancelClick={this.closeCreateEventModal}/>
+          <CreateEventForm handleCloseModal={this.closeCreateEventModal}/>
         </Modal.Body>
       </Modal>
     </div>
     )
   }
 }
+// Cancel and Save Buttons are found in the CreateEventForm Modal
 
-export default CreateEventModal;
+export default connect(mapStateToProps, { closeModal, openModal })(CreateEventModal)

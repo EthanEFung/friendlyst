@@ -652,6 +652,9 @@ body {
   height: 100%;
 }
 
+.event-list {
+  background-color:rgba(255, 255, 255, 0.88);
+}
 #upload-photo-button {
   height: 15px;
   width: auto;

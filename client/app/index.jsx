@@ -9,7 +9,7 @@ import FriendProfile from './FriendProfile.jsx'
 import FriendProfileRoute from './FriendProfileRoute.jsx'
 import Profile from './Profile.jsx'
 import eventsPage from './eventsFeature/components/eventsPage.jsx'
-import CreateEventModal from './eventsFeature/components/CreateEventModal.jsx'
+import CreateEventModal from './eventsFeature/containers/CreateEventModal.jsx'
 import CreateEventForm from './eventsFeature/containers/CreateEventForm.jsx'
 import NotFriendProfile from './NotFriendProfile.jsx'
 import NotUserProfile from './NotUserProfile.jsx'
@@ -21,7 +21,10 @@ import friendReducer from './reducer/friendReducer.js'
 import chatRoomReducer from './reducer/chatRoomReducer.js'
 import commentReducer from './reducer/commentReducer.js'
 import socketReducer from './reducer/socketReducer.js'
-import eventsReducer from './eventsFeature/eventsReducer.js'
+import eventsReducer from './eventsFeature/reducers/eventsReducer.js'
+import createEventModalReducer from './eventsFeature/reducers/createEventModalReducer.js'
+import updateEventModalReducer from './eventsFeature/reducers/updateEventModalReducer.js'
+import updateEntryReducer from './eventsFeature/reducers/updateEntryReducer.js'
 import $ from 'jquery';
 
 const reducers = combineReducers({
@@ -33,8 +36,12 @@ const reducers = combineReducers({
    friendinfoReducer,
    commentReducer,
    socketReducer,
-   eventsReducer
+   eventsReducer,
+   createEventModalReducer,
+   updateEventModalReducer,
+   updateEntryReducer,
 })
+//events reducer and eventsPage is found in the eventsFeature repo
 
 const store = createStore(reducers)
 
