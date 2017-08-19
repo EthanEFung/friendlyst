@@ -13,11 +13,13 @@ import {
 } from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
 import createNewEvent from '../actions/createNewEvent.js';
+import updateEventModal from '../actions/updateEventModal.js';
 import axios from 'axios';
 
 const mapStateToProps = (state) => {
   return {
-    event: state.eventsReducer.event
+    event: state.eventsReducer.event,
+    prevEvent: state.updateEventModalReducer.prevEvent
   }
 }
 
@@ -40,6 +42,13 @@ class CreateEventForm extends Component {
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleEventSubmit = this.handleEventSubmit.bind(this);
+  }
+  
+
+  componentDidMount() {
+    console.log('this is the event form', this.props.prevEvent)
+    this.setState({event: this.props.prevEvent });
+    
   }
 
   getValidationState() {
@@ -103,6 +112,13 @@ class CreateEventForm extends Component {
   
   handleEventSubmit() {
     let { name, date, location, description } = this.state.event;
+    
+    console.log(this.props, 'this is the props of the form of the event')
+    
+    // axios.get(`/api/event/getEvent`, { id })
+    //   .then(event => {
+    //     console.log(event);
+    //   })
 
     axios.post(`/api/event/postEvent`, { name, date, location, description })
       .then((event) => {
@@ -113,11 +129,17 @@ class CreateEventForm extends Component {
       })
   }
 
-  componentDidUpdate() {
-    // let hiddenInputElement = document.getElementById("datepicker");
-    // console.log(hiddenInputElement.value, 'this is the ISO string date')
-    // console.log(hiddenInputElement.getAttribute('data-formattedvalue'))
-  }
+  // componentDidReceiveProps() {
+  //   console.log('i received new props', this.props)
+  // }
+
+  // componentDidUpdate() {
+  //   // let hiddenInputElement = document.getElementById("datepicker");
+  //   // console.log(hiddenInputElement.value, 'this is the ISO string date')
+  //   // console.log(hiddenInputElement.getAttribute('data-formattedvalue'))
+  // }
+
+  
 
   render() {
     let { name, date, location, description } = event;
@@ -206,4 +228,4 @@ class CreateEventForm extends Component {
     );
   }
 }
-export default connect(mapStateToProps, { createNewEvent })(CreateEventForm);
+export default connect(mapStateToProps, { createNewEvent, updateEventModal })(CreateEventForm);

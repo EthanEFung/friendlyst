@@ -6,12 +6,16 @@ export default (state = {
       state = Object.assign({}, state, {
         events: [...action.payload]
       })
-      return state
+      return state;
+      break;
     case 'CREATE_NEW_EVENT':
       state = Object.assign({}, state, {
         events: [action.payload, ...state.events]
       })
+      return state;
+      break;
     default:
       return state
+      break;
   }
 }

@@ -10,7 +10,7 @@ import openModal from '../actions/openModal.js';
 
 const mapStateToProps = (state) => {
 	return {
-		showModal: state.createEventModalReducer.showModal
+    showModal: state.createEventModalReducer.showModal
 	}
 }
 
@@ -30,7 +30,6 @@ class CreateEventModal extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
     <div>
       <Button className="event-list-button btn btn-default" onClick={this.openCreateEventModal}>

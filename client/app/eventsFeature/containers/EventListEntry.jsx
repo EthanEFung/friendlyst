@@ -7,18 +7,40 @@ import {
   DropdownButton,
   MenuItem,
 } from 'react-bootstrap';
+import closeModal from '../actions/closeModal.js';
+import openModal  from '../actions/openModal.js';
+import updateEventModal from '../actions/updateEventModal.js'
 import axios from 'axios'
 
 const mapStateToProps = (state) => {
   return {
-    event: state.eventsReducer.event
+    event: state.eventsReducer.event,
+    showModal: state.createEventModalReducer.showModal
   }
 }
 
 class EventListEntry extends Component {
   constructor(props) {
     super(props);
+    this.state = { 
+      name: '',
+      date: '',
+      location: '', 
+      description: '',
+      id: '',
+    }
     this.handleDeleteClick = this.handleDeleteClick.bind(this)
+    this.handleUpdateClick = this.handleUpdateClick.bind(this)
+  }
+
+  componentDidMount() {
+    this.setState({
+      name: this.props.name, 
+      date: this.props.date,
+      location: this.props.location,
+      description: this.props.description,
+      id: this.props.id
+    })
   }
 
   handleDeleteClick() {
@@ -37,6 +59,12 @@ class EventListEntry extends Component {
 
   handleUpdateClick() {
     console.log('user wants to update event from events table')
+    
+    this.props.openModal(true);
+    console.log(`this is the state event`, this.state);
+    this.props.updateEventModal(this.state);
+
+    // axios.put('/api/event/updateEvent', {this.state.event})
   }
 
   render() {
@@ -65,4 +93,4 @@ class EventListEntry extends Component {
   }
 }
 
-export default connect(mapStateToProps)(EventListEntry)
+export default connect(mapStateToProps, { closeModal, openModal, updateEventModal })(EventListEntry)

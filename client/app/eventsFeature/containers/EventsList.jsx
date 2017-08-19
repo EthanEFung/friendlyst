@@ -26,15 +26,15 @@ class EventsList extends Component {
       })
   }
 
-  componentWillReceiveProps() {
-    axios.get('/api/event/getEvents')
-    .then(events => {
-      this.props.getStoredEvents(events.data)
-    })
-    .catch(err => {
-      console.log('events page could not receive events from the database', err)
-    })
-  }
+  // componentWillReceiveProps() {
+  //   axios.get('/api/event/getEvents')
+  //   .then(events => {
+  //     this.props.getStoredEvents(events.data)
+  //   })
+  //   .catch(err => {
+  //     console.log('events page could not receive events from the database', err)
+  //   })
+  // }
 
   render() {
     return (
