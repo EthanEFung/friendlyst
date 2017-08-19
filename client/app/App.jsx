@@ -180,6 +180,7 @@ class App extends Component {
 	setText(text){
 		console.log('setting text ::: ', text)
 		focusElement.value = text;
+		focusElement.trigger('change');
 	}
 	manageChat(nickname) {
 	
