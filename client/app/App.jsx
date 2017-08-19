@@ -132,7 +132,7 @@ class App extends Component {
 		if(annyang){
 			window.onload = function(){
 				var commands = {
-					// 'type *text': this.setText,
+					'type *text': this.setText,
 					'no': function(){console.log('hello')}
 				};
 				annyang.debug();
