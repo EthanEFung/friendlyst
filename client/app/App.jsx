@@ -136,7 +136,14 @@ class App extends Component {
 					'no': function(){console.log('hello')}
 				};
 				annyang.debug();
-				annyang.addCommands(commands);
+				annyang.init(commands, true);
+				annyang.addCallback('errorNetwork', ()=>{
+					console.log('error')
+				})
+				annyang.addCallback('result', (phrases)=>{
+					console.log('i think you said: ', phrases[0]);
+					console.log('but u also mighta said: ', phrases);
+				})
 				annyang.start();
 			}
 		}
