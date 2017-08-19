@@ -23,6 +23,12 @@ class FeedListEntryComments extends Component {
 			showSubComments: !this.state.showSubComments
 		})
 	}
+	componentDidUpdate() {
+		$('input').focus(function(){
+			focusElement = this;
+			console.log(focusElement);
+		})
+	}
 	componentDidMount() {
 		//get name and image links
 		let id = this.props.comment.userId;
@@ -124,7 +130,6 @@ class FeedListEntryComments extends Component {
 		this.setState({ subcommentText: text });
 	}
 	render() {
-		//console.log(this.state.subcomments)
 		return (
 
 				<div className="comment-container">
