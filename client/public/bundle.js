@@ -76494,7 +76494,8 @@ module.exports = CrossOriginAuthentication;
 const AUTH_CONFIG = {
   domain: 'taeminpak.auth0.com',
   clientID: 'Gn9QRrr1wAJou5J2E41RTpzQV4rZk4lO',
-  redirectUri: 'http://localhost:3000/home'
+  // redirectUri: 'http://localhost:3000/home'
+  redirectUri: 'https://friendlyst.herokuapp.com/home'
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = AUTH_CONFIG;
 
