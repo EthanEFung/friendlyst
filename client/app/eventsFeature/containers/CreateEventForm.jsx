@@ -48,7 +48,9 @@ class CreateEventForm extends Component {
   }
   
   componentDidMount() {
-    this.setState({event: this.props.prevEvent});
+    if (this.props.isUpdatingEntry) {
+      this.setState({event: this.props.prevEvent});
+    }
   }
 
   getValidationState() {
