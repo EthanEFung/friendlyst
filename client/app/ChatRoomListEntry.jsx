@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import MessageList from './MessageList.jsx'
 import axios from 'axios'
-// import VIDEO_KEYS from '../../VIDEO_KEYS.js'
+import VIDEO_KEYS from '../../VIDEO_KEYS.js'
 import Push from 'push.js'
 import Dropzone from 'react-dropzone';
 
@@ -125,10 +125,12 @@ class ChatRoomListEntry extends Component {
     let app = this
     var phone = window.phone = PHONE({
       number: this.props.room.user.nickname || 'ANONYMOUS', // TO DO : ADD IN THE USERNAME HERE
-      publish_key:  process.env.PUBLISH,
-      // || VIDEO_KEYS.publish_key,
-      subscribe_key:  process.env.SUBSCRIBE
-      // || VIDEO_KEYS.subscribe_key
+      publish_key:  /*process.env.PUBLISH,*/
+      // ||
+       VIDEO_KEYS.publish_key,
+      subscribe_key: /* process.env.SUBSCRIBE */
+      // ||
+       VIDEO_KEYS.subscribe_key
     })
     phone.receive(function(session) {
       session.connected(function(session) {
