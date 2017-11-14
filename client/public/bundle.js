@@ -54166,15 +54166,14 @@ var CreateEventForm = function (_Component) {
 
     _this.state = {
       event: {
-        name: '',
+        name: "",
         date: new Date().toISOString(),
-        formattedDate: '',
-        location: '',
-        description: ''
+        formattedDate: "",
+        location: "",
+        description: ""
       }
     };
 
-    _this.getValidationState = _this.getValidationState.bind(_this);
     _this.handleNameChange = _this.handleNameChange.bind(_this);
     _this.handleDateChange = _this.handleDateChange.bind(_this);
     _this.handleLocationChange = _this.handleLocationChange.bind(_this);
@@ -54184,26 +54183,14 @@ var CreateEventForm = function (_Component) {
   }
 
   _createClass(CreateEventForm, [{
-    key: 'componentDidMount',
+    key: "componentDidMount",
     value: function componentDidMount() {
       if (this.props.isUpdatingEntry) {
         this.setState({ event: this.props.prevEvent });
       }
     }
   }, {
-    key: 'getValidationState',
-    value: function getValidationState() {
-      // length = this.state.event.name.length;
-      // if (length > 10) {
-      //   return 'success';
-      // } else if (length > 5){
-      //   return 'warning';
-      // } else {
-      //   return 'error';
-      // }
-    }
-  }, {
-    key: 'handleNameChange',
+    key: "handleNameChange",
     value: function handleNameChange(e) {
       this.setState({
         event: {
@@ -54216,7 +54203,7 @@ var CreateEventForm = function (_Component) {
       });
     }
   }, {
-    key: 'handleDateChange',
+    key: "handleDateChange",
     value: function handleDateChange(value, formattedDate) {
       this.setState({
         event: {
@@ -54229,7 +54216,7 @@ var CreateEventForm = function (_Component) {
       });
     }
   }, {
-    key: 'handleLocationChange',
+    key: "handleLocationChange",
     value: function handleLocationChange(e) {
       this.setState({
         event: {
@@ -54242,7 +54229,7 @@ var CreateEventForm = function (_Component) {
       });
     }
   }, {
-    key: 'handleDescriptionChange',
+    key: "handleDescriptionChange",
     value: function handleDescriptionChange(e) {
       this.setState({
         event: {
@@ -54255,7 +54242,7 @@ var CreateEventForm = function (_Component) {
       });
     }
   }, {
-    key: 'handleEventSubmit',
+    key: "handleEventSubmit",
     value: function handleEventSubmit() {
       var _this2 = this;
 
@@ -54265,48 +54252,43 @@ var CreateEventForm = function (_Component) {
           location = _state$event.location,
           description = _state$event.description;
       var id = this.props.prevEvent.id;
-      // console.log('this is the prevEvent name', this.props.prevEvent.name)
-      // console.log('this is the current')
-      // console.log(id, 'this is the id of the prevEvent')
 
-      console.log('the entry is was an update', this.props.isUpdatingEntry);
 
       if (this.props.isUpdatingEntry) {
         this.props.updateEntry(false);
-        _axios2.default.get('/api/event/getEvent', { params: id }).then(function (event) {
-          _axios2.default.put('/api/event/updateEvent', { name: name, date: date, location: location, description: description, id: id }).then(function (response) {
-            console.log('this is the response of axios request put', response);
-            _this2.props.updateEvents({ name: name, date: date, location: location, description: description, id: id });
+        _axios2.default.get("/api/event/getEvent", { params: id }).then(function (event) {
+          _axios2.default.put("/api/event/updateEvent", {
+            name: name,
+            date: date,
+            location: location,
+            description: description,
+            id: id
+          }).then(function (response) {
+            _this2.props.updateEvents({
+              name: name,
+              date: date,
+              location: location,
+              description: description,
+              id: id
+            });
           }).catch(function (err) {
-            console.log('error creating updated event after receiving from db', err);
+            console.log("error creating updated event after receiving from db", err);
           });
         }).catch(function (err) {
-          console.log('error getting event to update', err);
+          console.log("error getting event to update", err);
         });
       } else {
-        console.log('the entry is was an update for a new event post', this.props.isUpdatingEntry);
-        _axios2.default.post('/api/event/postEvent', { name: name, date: date, location: location, description: description }).then(function (event) {
-          console.log('event was posted ' + event.data);
+        console.log("the entry is was an update for a new event post", this.props.isUpdatingEntry);
+        _axios2.default.post("/api/event/postEvent", { name: name, date: date, location: location, description: description }).then(function (event) {
+          console.log("event was posted " + event.data);
           _this2.props.createNewEvent(_this2.state.event);
         }).catch(function (err) {
-          console.log('error receiving event from the database ' + err);
+          console.log("error receiving event from the database " + err);
         });
       }
     }
-
-    // componentDidReceiveProps() {
-    //   console.log('i received new props', this.props)
-    // }
-
-    // componentDidUpdate() {
-    //   // let hiddenInputElement = document.getElementById("datepicker");
-    //   // console.log(hiddenInputElement.value, 'this is the ISO string date')
-    //   // console.log(hiddenInputElement.getAttribute('data-formattedvalue'))
-    // }
-
-
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var _this3 = this;
 
@@ -54321,110 +54303,81 @@ var CreateEventForm = function (_Component) {
         { horizontal: true },
         _react2.default.createElement(
           _reactBootstrap.FormGroup,
-          {
-            controlId: 'eventName',
-            validationState: this.getValidationState()
-          },
+          { controlId: "eventName" },
           _react2.default.createElement(
             _reactBootstrap.Col,
             { componentClass: _reactBootstrap.ControlLabel, xs: 3 },
-            'Event Name:'
+            "Event Name:"
           ),
           _react2.default.createElement(
             _reactBootstrap.Col,
             { xs: 9 },
             _react2.default.createElement(_reactBootstrap.FormControl, {
-              type: 'text',
+              type: "text",
               value: this.state.event.name,
-              placeholder: 'Enter the event\'s name',
+              placeholder: "Enter the event's name",
               onChange: this.handleNameChange
             }),
-            _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null),
-            _react2.default.createElement(
-              _reactBootstrap.HelpBlock,
-              null,
-              'Give your event a BANGIN name'
-            )
+            _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
           )
         ),
         _react2.default.createElement(
           _reactBootstrap.FormGroup,
-          { controlId: 'eventDate' },
+          { controlId: "eventDate" },
           _react2.default.createElement(
             _reactBootstrap.Col,
             { componentClass: _reactBootstrap.ControlLabel, xs: 3 },
-            'Date:'
+            "Date:"
           ),
           _react2.default.createElement(
             _reactBootstrap.Col,
             { xs: 9 },
             _react2.default.createElement(_reactBootstrapDatePicker2.default, {
-              id: 'datepicker',
+              id: "datepicker",
               value: this.state.event.date,
               onChange: this.handleDateChange
-            }),
-            _react2.default.createElement(
-              _reactBootstrap.HelpBlock,
-              null,
-              'When is your event?'
-            )
+            })
           )
         ),
         _react2.default.createElement(
           _reactBootstrap.FormGroup,
-          {
-            controlId: 'eventLocation',
-            validationState: this.getValidationState()
-          },
+          { controlId: "eventLocation" },
           _react2.default.createElement(
             _reactBootstrap.Col,
             { componentClass: _reactBootstrap.ControlLabel, xs: 3 },
-            'Event Location:'
+            "Event Location:"
           ),
           _react2.default.createElement(
             _reactBootstrap.Col,
             { xs: 9 },
             _react2.default.createElement(_reactBootstrap.FormControl, {
-              type: 'text',
+              type: "text",
               value: this.state.event.location,
-              placeholder: 'Where are you having your event?',
+              placeholder: "Where are you having your event?",
               onChange: this.handleLocationChange
             }),
-            _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null),
-            _react2.default.createElement(
-              _reactBootstrap.HelpBlock,
-              null,
-              'What lit AF place are you having the event?'
-            )
+            _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
           )
         ),
         _react2.default.createElement(
           _reactBootstrap.FormGroup,
-          {
-            controlId: 'eventDescription',
-            validationState: this.getValidationState()
-          },
+          { controlId: "eventDescription" },
           _react2.default.createElement(
             _reactBootstrap.Col,
             { componentClass: _reactBootstrap.ControlLabel, xs: 3 },
-            'Event Description:'
+            "Event Description:"
           ),
           _react2.default.createElement(
             _reactBootstrap.Col,
             { xs: 9 },
             _react2.default.createElement(_reactBootstrap.FormControl, {
-              type: 'text',
-              componentClass: 'textarea',
+              type: "text",
+              componentClass: "textarea",
               value: this.state.event.description,
-              placeholder: 'What\'s your event about?',
+              placeholder: "What's your event about?",
               onChange: this.handleDescriptionChange
             }),
-            _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null),
-            _react2.default.createElement(
-              _reactBootstrap.HelpBlock,
-              null,
-              'Get people hype'
-            )
+            _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
           )
         ),
         _react2.default.createElement(
@@ -54433,23 +54386,24 @@ var CreateEventForm = function (_Component) {
           _react2.default.createElement(
             _reactBootstrap.Button,
             {
-              bsStyle: 'primary',
+              bsStyle: "primary",
               onClick: function onClick() {
                 _this3.handleEventSubmit();
                 _this3.props.handleCloseModal();
               }
             },
-            'Save'
+            "Save"
           ),
-          '   ',
+          "   ",
           _react2.default.createElement(
             _reactBootstrap.Button,
-            { onClick: function onClick() {
+            {
+              onClick: function onClick() {
                 _this3.props.handleCloseModal();
                 _this3.props.updateEntry(false);
               }
             },
-            'Cancel'
+            "Cancel"
           )
         )
       );
@@ -54459,7 +54413,12 @@ var CreateEventForm = function (_Component) {
   return CreateEventForm;
 }(_react.Component);
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, { createNewEvent: _createNewEvent2.default, updateEventModal: _updateEventModal2.default, updateEntry: _updateEntry2.default, updateEvents: _updateEvents2.default })(CreateEventForm);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, {
+  createNewEvent: _createNewEvent2.default,
+  updateEventModal: _updateEventModal2.default,
+  updateEntry: _updateEntry2.default,
+  updateEvents: _updateEvents2.default
+})(CreateEventForm);
 
 /***/ }),
 /* 403 */
@@ -90916,32 +90875,21 @@ var EventsList = function (_Component) {
   }
 
   _createClass(EventsList, [{
-    key: 'componentDidMount',
+    key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
 
-      _axios2.default.get('/api/event/getEvents').then(function (events) {
+      _axios2.default.get("/api/event/getEvents").then(function (events) {
         _this2.props.getStoredEvents(events.data);
       }).catch(function (err) {
-        console.log('events page could not receive events from the database', err);
+        console.log("events page could not receive events from the database", err);
       });
     }
-
-    // componentWillReceiveProps() {
-    //   axios.get('/api/event/getEvents')
-    //   .then(events => {
-    //     this.props.getStoredEvents(events.data)
-    //   })
-    //   .catch(err => {
-    //     console.log('events page could not receive events from the database', err)
-    //   })
-    // }
-
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       return _react2.default.createElement(
-        'div',
+        "div",
         null,
         _react2.default.createElement(_reactBootstrap.Col, { xs: 1 }),
         _react2.default.createElement(
@@ -90949,7 +90897,7 @@ var EventsList = function (_Component) {
           { xs: 10 },
           _react2.default.createElement(
             _reactBootstrap.ListGroup,
-            { className: 'event-list' },
+            { className: "event-list" },
             this.props.events.map(function (event) {
               return _react2.default.createElement(_EventListEntry2.default, _extends({ key: event.id }, event));
             })

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   Modal,
   Col,
@@ -7,85 +7,73 @@ import {
   FormGroup,
   FormControl,
   ControlLabel,
-  HelpBlock, 
+  HelpBlock,
   Button,
   ButtonGroup
-} from 'react-bootstrap';
-import DatePicker from 'react-bootstrap-date-picker';
-import createNewEvent from '../actions/createNewEvent.js';
-import updateEventModal from '../actions/updateEventModal.js';
-import updateEntry from '../actions/updateEntry.js';
-import updateEvents from '../actions/updateEvents.js';
-import axios from 'axios';
+} from "react-bootstrap";
+import DatePicker from "react-bootstrap-date-picker";
+import createNewEvent from "../actions/createNewEvent.js";
+import updateEventModal from "../actions/updateEventModal.js";
+import updateEntry from "../actions/updateEntry.js";
+import updateEvents from "../actions/updateEvents.js";
+import axios from "axios";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     events: state.eventsReducer.events,
     prevEvent: state.updateEventModalReducer.prevEvent,
     isUpdatingEntry: state.updateEntryReducer.isUpdatingEntry
-  }
-}
+  };
+};
 
 class CreateEventForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       event: {
-        name: '',
+        name: "",
         date: new Date().toISOString(),
-        formattedDate: '',
-        location: '',
-        description: '',
+        formattedDate: "",
+        location: "",
+        description: ""
       }
-    }
+    };
 
-    this.getValidationState = this.getValidationState.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleEventSubmit = this.handleEventSubmit.bind(this);
   }
-  
+
   componentDidMount() {
     if (this.props.isUpdatingEntry) {
-      this.setState({event: this.props.prevEvent});
+      this.setState({ event: this.props.prevEvent });
     }
   }
 
-  getValidationState() {
-    // length = this.state.event.name.length;
-    // if (length > 10) {
-    //   return 'success';
-    // } else if (length > 5){
-    //   return 'warning';
-    // } else {
-    //   return 'error';
-    // }
-  }
-
   handleNameChange(e) {
-    this.setState({ 
-      event: { 
-        name: e.target.value, 
-        date: this.state.event.date, 
-        formattedDate: this.state.event.formattedDate, 
-        location: this.state.event.location, 
-        description:this.state.event.description
-       }
-    })
+    this.setState({
+      event: {
+        name: e.target.value,
+        date: this.state.event.date,
+        formattedDate: this.state.event.formattedDate,
+        location: this.state.event.location,
+        description: this.state.event.description
+      }
+    });
   }
 
   handleDateChange(value, formattedDate) {
-    this.setState({ 
+    this.setState({
       event: {
-        name: this.state.event.name, 
+        name: this.state.event.name,
         date: value,
         formattedDate: formattedDate,
         location: this.state.event.location,
-        description: this.state.event.description,
+        description: this.state.event.description
       }
-    })
+    });
   }
 
   handleLocationChange(e) {
@@ -95,9 +83,9 @@ class CreateEventForm extends Component {
         date: this.state.event.date,
         formattedDate: this.state.event.formattedDate,
         location: e.target.value,
-        description: this.state.event.description,
+        description: this.state.event.description
       }
-    })
+    });
   }
 
   handleDescriptionChange(e) {
@@ -107,69 +95,72 @@ class CreateEventForm extends Component {
         date: this.state.event.date,
         formattedDate: this.state.event.formattedDate,
         location: this.state.event.location,
-        description: e.target.value,
+        description: e.target.value
       }
-    })
+    });
   }
-  
+
   handleEventSubmit() {
     let { name, date, location, description } = this.state.event;
     let { id } = this.props.prevEvent;
-    // console.log('this is the prevEvent name', this.props.prevEvent.name)
-    // console.log('this is the current')
-    // console.log(id, 'this is the id of the prevEvent')
-    console.log('the entry is was an update', this.props.isUpdatingEntry)
-    
+
     if (this.props.isUpdatingEntry) {
-      this.props.updateEntry(false)
-      axios.get(`/api/event/getEvent`, { params: id })
+      this.props.updateEntry(false);
+      axios
+        .get(`/api/event/getEvent`, { params: id })
         .then(event => {
-          axios.put(`/api/event/updateEvent`, { name, date, location, description, id })
-          .then((response) => {
-            console.log('this is the response of axios request put', response)
-            this.props.updateEvents({name, date, location, description, id });
-          })
-          .catch(err => {
-            console.log('error creating updated event after receiving from db', err)
-          })
+          axios
+            .put(`/api/event/updateEvent`, {
+              name,
+              date,
+              location,
+              description,
+              id
+            })
+            .then(response => {
+              this.props.updateEvents({
+                name,
+                date,
+                location,
+                description,
+                id
+              });
+            })
+            .catch(err => {
+              console.log(
+                "error creating updated event after receiving from db",
+                err
+              );
+            });
         })
         .catch(err => {
-          console.log('error getting event to update',err)
-        })
+          console.log("error getting event to update", err);
+        });
     } else {
-      console.log('the entry is was an update for a new event post', this.props.isUpdatingEntry)
-      axios.post(`/api/event/postEvent`, { name, date, location, description })
-        .then((event) => {
-          console.log(`event was posted ${event.data}`)
+      console.log(
+        "the entry is was an update for a new event post",
+        this.props.isUpdatingEntry
+      );
+      axios
+        .post(`/api/event/postEvent`, { name, date, location, description })
+        .then(event => {
+          console.log(`event was posted ${event.data}`);
           this.props.createNewEvent(this.state.event);
         })
         .catch(err => {
-          console.log(`error receiving event from the database ${err}`)
-        })
+          console.log(`error receiving event from the database ${err}`);
+        });
     }
   }
-
-  // componentDidReceiveProps() {
-  //   console.log('i received new props', this.props)
-  // }
-
-  // componentDidUpdate() {
-  //   // let hiddenInputElement = document.getElementById("datepicker");
-  //   // console.log(hiddenInputElement.value, 'this is the ISO string date')
-  //   // console.log(hiddenInputElement.getAttribute('data-formattedvalue'))
-  // }
-
-  
 
   render() {
     let { name, date, location, description } = event;
     return (
       <Form horizontal>
-        <FormGroup
-          controlId="eventName"
-          validationState={this.getValidationState()}
-        >
-          <Col componentClass={ControlLabel} xs={3}>Event Name:</Col>
+        <FormGroup controlId="eventName">
+          <Col componentClass={ControlLabel} xs={3}>
+            Event Name:
+          </Col>
           <Col xs={9}>
             <FormControl
               type="text"
@@ -178,27 +169,26 @@ class CreateEventForm extends Component {
               onChange={this.handleNameChange}
             />
             <FormControl.Feedback />
-            <HelpBlock>Give your event a BANGIN name</HelpBlock>
           </Col>
         </FormGroup>
 
         <FormGroup controlId="eventDate">
-          <Col componentClass={ControlLabel} xs={3}>Date:</Col>
+          <Col componentClass={ControlLabel} xs={3}>
+            Date:
+          </Col>
           <Col xs={9}>
-            <DatePicker 
-              id="datepicker" 
+            <DatePicker
+              id="datepicker"
               value={this.state.event.date}
               onChange={this.handleDateChange}
-            />  
-            <HelpBlock>When is your event?</HelpBlock>
+            />
           </Col>
         </FormGroup>
 
-        <FormGroup
-          controlId="eventLocation"
-          validationState={this.getValidationState()}
-        >
-          <Col componentClass={ControlLabel} xs={3}>Event Location:</Col>
+        <FormGroup controlId="eventLocation">
+          <Col componentClass={ControlLabel} xs={3}>
+            Event Location:
+          </Col>
           <Col xs={9}>
             <FormControl
               type="text"
@@ -207,49 +197,51 @@ class CreateEventForm extends Component {
               onChange={this.handleLocationChange}
             />
             <FormControl.Feedback />
-            <HelpBlock>What lit AF place are you having the event?</HelpBlock>
           </Col>
-      </FormGroup>
+        </FormGroup>
 
-      <FormGroup
-        controlId="eventDescription"
-        validationState={this.getValidationState()}
-      >
-        <Col componentClass={ControlLabel} xs={3}>Event Description:</Col>
-        <Col xs={9}>
-          <FormControl
-            type="text"
-            componentClass="textarea"
-            value={this.state.event.description}
-            placeholder="What's your event about?"
-            onChange={this.handleDescriptionChange}
-          />
-          <FormControl.Feedback />
-          <HelpBlock>Get people hype</HelpBlock>
-        </Col>
-      </FormGroup>   
-    <Modal.Footer>
-      <Button 
-        bsStyle="primary" 
-        onClick={() => {
-          this.handleEventSubmit(); 
-          this.props.handleCloseModal();
-          }}
-      >
-      Save
-      </Button>
-      {'   '}
-      <Button onClick={() => {
-        this.props.handleCloseModal();
-        this.props.updateEntry(false);
-      }}
-      >
-      Cancel
-      </Button>  
-    </Modal.Footer>
-      
-    </Form>
+        <FormGroup controlId="eventDescription">
+          <Col componentClass={ControlLabel} xs={3}>
+            Event Description:
+          </Col>
+          <Col xs={9}>
+            <FormControl
+              type="text"
+              componentClass="textarea"
+              value={this.state.event.description}
+              placeholder="What's your event about?"
+              onChange={this.handleDescriptionChange}
+            />
+            <FormControl.Feedback />
+          </Col>
+        </FormGroup>
+        <Modal.Footer>
+          <Button
+            bsStyle="primary"
+            onClick={() => {
+              this.handleEventSubmit();
+              this.props.handleCloseModal();
+            }}
+          >
+            Save
+          </Button>
+          {"   "}
+          <Button
+            onClick={() => {
+              this.props.handleCloseModal();
+              this.props.updateEntry(false);
+            }}
+          >
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Form>
     );
   }
 }
-export default connect(mapStateToProps, { createNewEvent, updateEventModal, updateEntry, updateEvents })(CreateEventForm);
+export default connect(mapStateToProps, {
+  createNewEvent,
+  updateEventModal,
+  updateEntry,
+  updateEvents
+})(CreateEventForm);
